@@ -1,0 +1,141 @@
+%% ==============================
+% CẤU HÌNH UART & LOG
+% ==============================
+port = "COM3";       % Cổng COM
+baud = 9600;         % Baud rate
+filename = "uart_log1.csv";  % File log
+numCols = 12;
+
+% Nếu file chưa tồn tại, tạo file CSV với header
+if ~isfile(filename)
+    header = "Col" + string(1:numCols);
+    fid = fopen(filename, 'w');
+    fprintf(fid, '%s\n', strjoin(header, ','));
+    fclose(fid);
+end
+
+stopFlag = false;
+startFlag = false;
+s = []; % UART object
+
+% Bộ nhớ dữ liệu
+dataBuffer = cell(numCols,1);
+for i = 1:numCols
+    dataBuffer{i} = [];
+end
+
+%% ==============================
+% GIAO DIỆN
+% ==============================
+fig = figure('Name','UART Data Plot','NumberTitle','off', ...
+             'CloseRequestFcn',@(src,evt) closeFigure());
+
+btnStart = uicontrol('Style','pushbutton', 'String','START', ...
+                'FontSize',12, 'BackgroundColor','green', ...
+                'ForegroundColor','white', ...
+                'Units','normalized', 'Position',[0.8 0.95 0.08 0.04], ...
+                'Callback',@(src,evt) startUART());
+
+btnStop = uicontrol('Style','pushbutton', 'String','STOP', ...
+                'FontSize',12, 'BackgroundColor','red', ...
+                'ForegroundColor','white', ...
+                'Units','normalized', 'Position',[0.9 0.95 0.08 0.04], ...
+                'Callback',@(src,evt) stopUART());
+
+% Chỉ vẽ cột 2, 3, 4 theo cột 1
+plotCols = [2 3 5];
+plotNames = {'Dòng điện (A)', 'Điện áp 9 cell (V)', 'Điện áp 1 cell (V)'};
+
+tiledlayout(numel(plotCols), 1, 'TileSpacing', 'compact');
+ax = gobjects(numel(plotCols), 1);
+plotLines = gobjects(numel(plotCols), 1);
+
+for i = 1:numel(plotCols)
+    ax(i) = nexttile;
+    plotLines(i) = plot(ax(i), nan, nan, '-o', ...
+    'Color', 'r', ...            % Màu đỏ
+    'LineWidth', 1.2, ...        % Độ dày đường
+    'Marker', 'o', ...           % Hình chấm tròn
+    'MarkerSize', 2, ...         % Kích thước chấm nhỏ
+    'MarkerFaceColor', 'r', ...  % Tô chấm màu đỏ
+    'MarkerEdgeColor', 'r');     % Viền chấm màu đỏ
+    ylabel(ax(i), plotNames{i});
+    grid(ax(i), 'on');
+end
+xlabel(ax(end), 'Thời gian (s)');
+
+%% ==============================
+% VÒNG LẶP CHÍNH
+% ==============================
+while ishandle(fig)
+    if startFlag && ~stopFlag
+        try
+            % Đọc 1 dòng từ UART
+            line = readline(s);
+            values = str2double(split(line, ","));
+
+            % Kiểm tra dữ liệu hợp lệ
+            if numel(values) == numCols && all(~isnan(values))
+                % Lưu dữ liệu vào bộ nhớ
+                for c = 1:numCols
+                    dataBuffer{c}(end+1) = values(c);
+                end
+
+                % Hiển thị console
+                fprintf("Dữ liệu: ");
+                fprintf("%8.3f ", values);
+                fprintf("\n");
+
+                % Ghi vào CSV
+                fid = fopen(filename, 'a');
+                fprintf(fid, '%s\n', strjoin(string(values), ','));
+                fclose(fid);
+
+                % Cập nhật đồ thị (nối liền dữ liệu)
+                for i = 1:numel(plotCols)
+                    colIdx = plotCols(i);
+                    set(plotLines(i), 'XData', dataBuffer{1}, ...
+                                      'YData', dataBuffer{colIdx});
+                end
+                drawnow limitrate nocallbacks;
+            else
+                warning("Dòng không hợp lệ: %s", line);
+            end
+        catch
+            pause(0.01);
+        end
+    else
+        pause(0.05);
+    end
+end
+
+%% ==============================
+% HÀM XỬ LÝ NÚT
+% ==============================
+function startUART()
+    assignin('base','stopFlag',false);
+    assignin('base','startFlag',true);
+    port = evalin('base','port');
+    baud = evalin('base','baud');
+    s = serialport(port, baud);
+    configureTerminator(s, "LF");
+    flush(s);
+    assignin('base','s',s);
+    disp('--- Bắt đầu đọc dữ liệu từ UART ---');
+end
+
+function stopUART()
+    assignin('base','stopFlag',true);
+    s = evalin('base','s');
+    if ~isempty(s)
+        delete(s);
+        clear s;
+        assignin('base','s',[]);
+        disp('--- Đã dừng và ngắt kết nối COM ---');
+    end
+end
+
+function closeFigure()
+    stopUART();
+    delete(gcf);
+end

@@ -1,0 +1,73 @@
+[System]
+Name='FDFE'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=1
+NumRules=25
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='CT'
+Range=[0 120]
+NumMFs=5
+MF1='S':'trapmf',[0 0 30 45]
+MF2='MS':'trimf',[30 45 60]
+MF3='M':'trimf',[45 60 75]
+MF4='ML':'trimf',[60 75 90]
+MF5='L':'trapmf',[75 90 1000 1000]
+
+[Input2]
+Name='NCC'
+Range=[50 120]
+NumMFs=5
+MF1='S':'trapmf',[0 0 80 85]
+MF2='MS':'trimf',[80 85 90]
+MF3='M':'trimf',[85 90 95]
+MF4='ML':'trimf',[90 95 100]
+MF5='L':'trapmf',[95 100 1000 1000]
+
+[Output1]
+Name='Fitness'
+Range=[-0.1 1.1]
+NumMFs=9
+MF1='VS':'trapmf',[0 0 0 0.125]
+MF2='SS':'trimf',[0 0.125 0.25]
+MF3='S':'trimf',[0.125 0.25 0.375]
+MF4='MS':'trimf',[0.25 0.375 0.5]
+MF5='M':'trimf',[0.375 0.5 0.625]
+MF6='ML':'trimf',[0.5 0.625 0.75]
+MF7='L':'trimf',[0.625 0.75 0.875]
+MF8='LL':'trimf',[0.75 0.875 1]
+MF9='VL':'trapmf',[0.875 1 10 10]
+
+[Rules]
+1 1, 5 (1) : 1
+2 1, 6 (1) : 1
+3 1, 7 (1) : 1
+4 1, 8 (1) : 1
+5 1, 9 (1) : 1
+1 2, 4 (1) : 1
+2 2, 5 (1) : 1
+3 2, 6 (1) : 1
+4 2, 7 (1) : 1
+5 2, 8 (1) : 1
+1 3, 3 (1) : 1
+2 3, 4 (1) : 1
+3 3, 5 (1) : 1
+4 3, 6 (1) : 1
+5 3, 7 (1) : 1
+1 4, 2 (1) : 1
+2 4, 3 (1) : 1
+3 4, 4 (1) : 1
+4 4, 5 (1) : 1
+5 4, 6 (1) : 1
+1 5, 1 (1) : 1
+2 5, 3 (1) : 1
+3 5, 3 (1) : 1
+4 5, 4 (1) : 1
+5 5, 5 (1) : 1
