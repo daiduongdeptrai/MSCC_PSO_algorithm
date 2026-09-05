@@ -1,0 +1,119 @@
+function simulate_charge
+
+    % ================= THÔNG SỐ BAN ĐẦU =================
+    U_cutoff = 4.2;
+    Q0 = 1310 * 3.6;            % Dung lượng danh định (Coulomb)
+    h = 0.01;
+    t_max = 10000;
+
+    % Tạo I_pattern với I3 hiện tại
+    I_pattern = [1.31 0.943 0.6893 0.3482 0.1635];
+    
+    % ====== Cộng thêm 0.24 vào tất cả phần tử ======
+    I_pattern(1) = I_pattern(1) + 0.25;
+    I_pattern(2) = I_pattern(2) + 0.2;
+    I_pattern(3) = I_pattern(3) + 0.15;
+    I_pattern(4) = I_pattern(4) + 0.15;
+    I_pattern(5) = I_pattern(5) + 0.1;
+
+    % ====== Chuyển sang Q14 ======
+    scaleQ14 = 2^14;  
+    I_pattern_Q14 = (I_pattern * scaleQ14);
+
+    % In ra kết quả dưới dạng mảng, ngăn cách bởi dấu phẩy
+    q14_str = num2str(I_pattern_Q14, '%.1f, ');
+    q14_str = q14_str(1:end-2);   % bỏ dấu ", " cuối
+    fprintf('I_pattern_Q14 = [%s]\n', q14_str);
+
+    float_str = num2str(I_pattern_Q14/scaleQ14, '%.6f, ');
+    float_str = float_str(1:end-2);
+    fprintf('I_pattern_float = [%s]\n', float_str);
+
+    % ================= KHỞI TẠO DỮ LIỆU =================
+    N = t_max / h;
+    Qk = Q0 * 0.2;
+    Ucpk = 0;
+    state = 1;
+    time = 0;
+
+    % Mảng lưu dữ liệu để vẽ
+    t_array = zeros(1, N);
+    I_array = zeros(1, N);
+    U_array = zeros(1, N);
+    Q_array = zeros(1, N);
+
+    for k = 1:N
+        tk = k * h;
+        Ik = I_pattern(state);
+
+        % Tính Qk (Coulomb)
+        Qk = Qk + Ik * h;
+
+        % Tính SoC
+        SoCk = Qk / Q0;
+
+        % OCV giữ nguyên
+        OCVk = 49.6031746023540*SoCk^7 - 242.777777773998*SoCk^6 + 482.055555548292*SoCk^5 - 502.200854693335*SoCk^4 ...
+             + 296.925106833103*SoCk^3 - 99.8582591282089*SoCk^2 + 18.1649483180672*SoCk + 2.28813333335377;
+    
+        % R0 mới
+        R0k = -26.2660619798791*SoCk^7 + 109.918871250115*SoCk^6 - 190.459259255377*SoCk^5 + 176.529168358619*SoCk^4 ...
+            - 94.1353744381275*SoCk^3 + 28.7364437012291*SoCk^2 - 4.63111345741627*SoCk + 0.316849947080660;
+
+        % Rp mới
+        Rpk = -200.375779563424*SoCk^7 + 845.710133351627*SoCk^6 - 1498.43113893579*SoCk^5 + 1444.42363360624*SoCk^4 ...
+            - 817.251138248603*SoCk^3 + 270.930470785998*SoCk^2 - 48.6443704325001*SoCk + 3.67438046376537;
+
+        % Cp mới
+        Cpk = 14029806.8139774*SoCk^7 - 59290766.0815755*SoCk^6 + 103717775.345970*SoCk^5 - 96939625.1087752*SoCk^4 ...
+            + 52045639.6093783*SoCk^3 - 15987520.6386594*SoCk^2 + 2596199.68902636*SoCk - 169463.377880981;
+
+        % RC song song
+        Ucpk = Ucpk + h * (-Ucpk / (Rpk * Cpk) + Ik / Cpk);
+
+        % Điện áp pin
+        U_tk = OCVk + R0k * Ik + Ucpk;
+
+        % Lưu dữ liệu
+        t_array(k) = tk;
+        I_array(k) = Ik;
+        U_array(k) = U_tk;
+        Q_array(k) = Qk / 3.6;  % đổi sang mAh
+
+        % MSCC logic
+        if U_tk >= U_cutoff
+            state = state + 1;
+        end
+
+        if state > 5
+            time = tk;
+            break;
+        end
+    end
+
+    % ================= VẼ ĐỒ THỊ =================
+    figure(1);
+    
+    subplot(3,1,1);
+    plot(t_array(1:k), I_array(1:k), 'b', 'LineWidth', 1.5);
+    ylabel('Dòng điện (A)');
+    title('Dòng điện sạc theo thời gian');
+    grid on;
+
+    subplot(3,1,2);
+    plot(t_array(1:k), U_array(1:k), 'r', 'LineWidth', 1.5);
+    ylabel('Điện áp (V)');
+    title('Điện áp sạc theo thời gian');
+    grid on;
+
+    subplot(3,1,3);
+    plot(t_array(1:k), Q_array(1:k), 'g', 'LineWidth', 1.5);
+    xlabel('Thời gian (s)');
+    ylabel('Dung lượng (mAh)');
+    title('Dung lượng sạc theo thời gian');
+    grid on;
+
+    % In kết quả
+    fprintf('Thời gian sạc kết thúc: %.2f giây\n', time);
+    fprintf('Dung lượng sạc được: %.2f mAh\n', Q_array(k));
+end

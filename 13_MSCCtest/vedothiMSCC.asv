@@ -1,0 +1,40 @@
+% Đọc file
+
+data = readtable('VEDOTHIMSCC.xlsx');
+disp(data.Properties.VariableNames)
+
+
+% Giả sử có cột: 'Time', 'Voltage_MATLAB', 'Voltage_PSIM',
+%                'Current_MATLAB', 'Current_PSIM',
+%                'Capacity_MATLAB', 'Capacity_PSIM'
+
+t_M = data.Col1/1000;
+
+% Điện áp
+figure(1);
+plot(t_M, data.Col4/9000, 'r', 'LineWidth', 1.5); hold on;
+xlabel('Time (s)');
+ylabel('Voltage (V)');
+title('Điện áp');
+legend('Thực nghiệm');
+ylim([3.6 4.25])
+grid on;
+
+% Dòng điện
+figure(2);
+plot(t_M, data.Col15/1000, 'r', 'LineWidth', 1.5); hold on;
+xlabel('Time (s)');
+ylabel('Current (A)');
+title('Dòng điện');
+legend('Thực nghiệm');
+grid on;
+ylim([0 1.5]);
+
+% Dung lượng
+figure(3);
+plot(t_M, data.Col2/3600 + 262.36, 'r', 'LineWidth', 1.5); hold on;
+xlabel('Time (s)');
+ylabel('Capacity (mAh)');
+title('Dung lượng');
+legend('Thực nghiệm');
+grid on;
