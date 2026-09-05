@@ -1,0 +1,7 @@
+../Core/Src/myI2CLCD.c:15:6:lcd_send_cmd	24	static
+../Core/Src/myI2CLCD.c:29:6:lcd_send_data	24	static
+../Core/Src/myI2CLCD.c:43:6:lcdInit	8	static
+../Core/Src/myI2CLCD.c:68:6:lcd_gotoXY	8	static
+../Core/Src/myI2CLCD.c:74:6:lcdClear	8	static
+../Core/Src/myI2CLCD.c:80:6:lcdPrintf	24	static
+../Core/Src/myI2CLCD.c:102:6:lcdXYprintf	16	static

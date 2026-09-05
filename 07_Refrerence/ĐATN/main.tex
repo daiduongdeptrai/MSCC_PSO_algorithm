@@ -1,0 +1,1793 @@
+
+%--------------------------------------------------------------
+% ĐẠI HỌC BÁCH KHOA HÀ NỘI
+% Trường Điện - Điện tử
+% Khoa Tự động hoá
+%
+% MẪU SOẠN THẢO ĐỒ ÁN
+%--------------------------------------------------------------
+
+
+
+\documentclass{thesis}
+\usepackage[utf8]{inputenc} % 
+\usepackage[T5]{fontenc} % Font Vietnamese
+\usepackage{graphicx} % Figure
+\usepackage{float} % Set position figure or table
+\usepackage{mathptmx} % select font Times New Roman
+\usepackage{geometry} % Set parameters paper
+\usepackage{xcolor}
+\usepackage[fontsize=13pt]{scrextend} % set font size = 13pt
+\usepackage{indentfirst} % Indent first line
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{tikz}
+\usepackage{makecell}
+\usepackage{diagbox}
+\usepackage{booktabs}
+
+
+
+%% START DOCUMENT
+\begin{document}
+
+% CREATE COVER PAGE
+
+\begin{center}
+    \vspace{12pt} % line spacing
+        \textbf{\fontsize{15pt}{0pt} \selectfont{} ĐẠI HỌC BÁCH KHOA HÀ NỘI \\ \vspace{3pt} TRƯỜNG ĐIỆN - ĐIỆN TỬ}
+    \vspace{0.5cm}
+    
+% INSERT LOGO
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=2cm,height=3cm]{Doan_2_Duong/figure/logoBK.png}
+\end{figure}
+
+% THESIS TYPE
+\vspace{48pt}
+        \fontsize{25pt}{0pt}\selectfont{} \textbf{ĐỒ ÁN TỐT NGHIỆP}
+\vspace{24pt}
+
+ % THESIS TITTLE
+        \textbf{\fontsize{17pt}{0pt}\selectfont{} TỐI ƯU BỘ DÒNG SẠC CHO PHƯƠNG PHÁP SẠC ỔN DÒNG NHIỀU MỨC}
+    \vspace{18pt}
+
+% NAME
+        \fontsize{14pt}{0pt}\selectfont{} \textbf{HOÀNG ĐẠI DƯƠNG}
+    \vspace{3pt}
+
+% EMAIL    
+        \fontsize{14pt}{0pt}\selectfont{} duong.hd212738@sis.hust.edu.vn
+    \vspace{12pt} % line spacing
+
+% MAJOR
+        \fontsize{14pt}{0pt}\selectfont{} \textbf{Ngành Kỹ thuật Điều khiển và Tự động hóa}  
+\end{center}
+    \vspace{48pt}
+
+% INFORMATION: SUPERVISOR NAME, STUDENT NAME,...
+\begin{table}[H]
+    \centering
+        \begin{tabular}{l l c}
+            \textbf{Giảng viên hướng dẫn:}    &  TS. Nguyễn Duy Đỉnh \vspace{6pt} &  \\ 
+            &\vspace{3pt} & \fontsize{10pt}{0pt}\selectfont{} Chữ ký của GVHD \\
+            \textbf{Khoa:} & Tự động hóa \vspace{3pt}\\ 
+            \textbf{Trường:} & Điện - Điện tử
+        \end{tabular}
+\end{table}
+
+% TIME
+\begin{center}
+    \vspace{48pt}
+    \fontsize{14pt}{0pt}\selectfont{} Hà Nội, 01/2025
+\end{center}
+
+% CREATE A NEW PAGE AND REMOVE PAGE NUMBER
+\thispagestyle{empty}
+    \newpage
+        \clearpage
+            \thispagestyle{empty}
+                \cleardoublepage
+
+% THESIS TASK
+
+                
+% THANKS
+\section*{LỜI CẢM ƠN}
+    \thispagestyle{empty}
+Em xin gửi lời cảm ơn chân thành nhất đến thầy TS. Nguyễn Duy Đỉnh, người đã tận tình hướng dẫn và đưa ra những góp ý quý giá trong suốt quá trình thực hiện đồ án tốt nghiệp của em. Sự chỉ dẫn của thầy không chỉ giúp em hoàn thiện đồ án một cách tốt nhất mà còn mang lại cho em những bài học sâu sắc về chuyên môn.
+
+Bên cạnh đó, em cũng muốn bày tỏ lòng biết ơn đến anh Ngô Quốc Khánh và anh Diêm Công Hiển, những người trực tiếp hướng dẫn em, đã hỗ trợ em hết mình trong việc giải quyết các vấn đề kỹ thuật và cung cấp những kiến thức bổ ích. Đặc biệt, em cảm ơn các anh chị và các bạn trong EVSE Lab, những người đã luôn sẵn sàng giúp đỡ và tạo nên một môi trường làm việc đầy nhiệt huyết và thân thiện.
+
+Dù đã cố gắng hết sức, nhưng do thời gian hạn chế và kinh nghiệm còn nhiều hạn chế, nội dung đồ án của em chắc chắn không thể tránh khỏi thiếu sót. Em rất mong nhận được sự đóng góp, nhận xét từ thầy cô và mọi người để có thể hoàn thiện hơn nữa.
+
+\vspace{6pt}
+    \hspace{7cm}Hà Nội, ngày 01 tháng 02 năm 2025
+        
+        \hspace{8.6cm} Sinh viên thực hiện      % command '\hspace' used to line indents
+
+\vspace{2cm}
+    \hspace{9.25cm}\textbf{Hoàng Đại Dương} % change name
+
+\newpage % create a new page
+    \thispagestyle{empty} 
+        \clearpage
+            \thispagestyle{empty}
+                \cleardoublepage
+
+% SUMMARY PART
+\section*{TÓM TẮT ĐỒ ÁN}
+    \thispagestyle{empty}
+Trong đồ án tốt nghiệp này trình bày thiết kế điều khiển bộ biến đổi Buck ứng dụng sạc pin Lithium-ion. Được thực hiện từ yêu cầu bài toán, phân tích các phương án thực hiện, đưa ra
+ vấn đề và khắc phục. Để làm được điều đó, cơ sở lý thuyết được đưa ra từ đó xây
+ dựng nên quy trình thiết kế, lựa chọn thông số cho bộ điều khiển, cuối cùng được kiểm
+ nghiệm lại dựa trên mô phỏng.
+
+
+\thispagestyle{empty}
+    \cleardoublepage
+
+ % CONTENT
+\tableofcontents 
+    \thispagestyle{empty}
+        \newpage
+            \thispagestyle{empty}
+                \cleardoublepage
+
+% LIST OF SYMBOLS AND ABBREVIATIONS
+\pagenumbering{roman}   % Roman numbering: i, ii, iii, iv,...
+\section*{DANH MỤC KÝ HIỆU VÀ CHỮ VIẾT TẮT}
+    \phantomsection \addcontentsline{toc}{section}{\numberline{} DANH MỤC KÝ HIỆU VÀ CHỮ VIẾT TẮT}
+
+% Create table
+\begin{tabular}{ l l }
+    \hspace{1cm} HESS & \hspace{4cm} Hybrid Energy Storage System \\  
+    \hspace{1cm} SC & \hspace{4cm} Super Capacitor    \\
+    \hspace{1cm} EMS  & \hspace{4cm} Energy Management Strategy 
+\end{tabular}  
+    \newpage
+
+% LIST OF FIGURES
+{\let\oldnumberline\numberline
+    \renewcommand{\numberline}{Hình~\oldnumberline}
+        \listoffigures}
+            \phantomsection\addcontentsline{toc}{section}{\numberline{} DANH MỤC HÌNH VẼ}
+\newpage
+
+% LIST OF TABLES
+{\let\oldnumberline\numberline
+    \renewcommand{\numberline}{Bảng~\oldnumberline}
+        \listoftables}
+            \phantomsection\addcontentsline{toc}{section}{\numberline{} DANH MỤC BẢNG BIỂU}
+\newpage
+
+%% --------------------------------------------------%%
+%------------CHAPTER 1---------------------------%
+%%-----------------------------------------------------%
+
+\pagenumbering{arabic} % numbering: 1,2,3,...
+    \section*{CHƯƠNG 1. GIỚI THIỆU CHUNG} 
+        \addcontentsline{toc}{section}{\numberline{}CHƯƠNG 1. GIỚI THIỆU CHUNG} % Reference to content
+
+\setcounter{section}{1} 
+    \setcounter{subsection}{0}
+        \setcounter{figure}{0}
+            \setcounter{table}{0}
+%%--------------------------------------------------------
+
+\subsection{Giới thiệu chung}
+Hiện nay, ô nhiễm môi trường, gia tăng khí thải nhà kính đang là vấn đề cấp bách toàn cầu. 
+ Theo báo cáo của \textit{“Global fossil carbon emissions rebound near pre-COVID-19 levels”}, năm 2021, phát thải CO$_2$ toàn cầu tăng 4,2\% so với 2020, gần mức trước đại dịch (36,2 tỷ tấn CO$_2$). Trung Quốc và Ấn Độ có mức tăng lớn nhất, trong khi Mỹ và EU vẫn thấp hơn mức năm 2019. Than đá, khí tự nhiên là nguồn phát thải chính. Nhiệt độ toàn cầu đã tăng 1,11$^\circ$C so với thời kỳ tiền công nghiệp, đe dọa mục tiêu 1,5$^\circ$C của Thỏa thuận Paris.
+Để giảm ô nhiễm, cần hành động toàn cầu, chuyển đổi sang năng lượng tái tạo và giảm đầu tư vào nhiên liệu hóa thạch. \cite{Jackson_2022}
+    \begin{figure}[!ht]
+        \centering        \includegraphics[width=0.7\linewidth]{Doan_2_Duong/figure/co2.png} % Link to figure
+        \caption{Lượng phát thải CO$_2$ tăng dần qua mỗi năm} % figure name
+        \label{hinh11}  % cross-reference for figure
+    \end{figure}
+    
+ Xu hướng đang được ưa chuộng hiện nay trên thế giới là sử dụng xe điện (Electric Vehicle- EV). Một giải pháp hiệu quả và bền vững để giảm ô nhiễm môi trường, đặc biệt trong các đô thị đông đúc. Xe điện không phát thải khí nhà kính hay các chất gây ô nhiễm tại điểm sử dụng, góp phần cải thiện chất lượng không khí. Khi điện được sản xuất từ các nguồn năng lượng tái tạo như gió, mặt trời hoặc thủy điện, EV giúp giảm đáng kể lượng phát thải CO2 so với xe chạy động cơ đốt trong (ICE). Công nghệ phanh tái sinh và các loại pin tiên tiến như Lithium-ion hay Na-S không chỉ tối ưu hóa năng lượng mà còn kéo dài thời gian sử dụng và giảm độc hại \cite{237530}
+ 
+Không chỉ vậy, các xu hướng phát triển xe điện (EV) tập trung vào cải tiến pin lithium-ion, công nghệ sạc nhanh, sạc không dây và trạm sạc tích hợp năng lượng mặt trời. Hệ thống lưới điện thông minh (Smart Grid) kết hợp năng lượng tái tạo như gió, mặt trời và công nghệ Vehicle-to-Grid (V2G), cho phép EV cung cấp điện lại cho lưới, giảm tải đỉnh và ổn định tần số. Giao thức tiêu chuẩn như IEC 61850 và blockchain được áp dụng để đảm bảo an toàn và minh bạch trong quản lý năng lượng, góp phần xây dựng hệ thống năng lượng bền vững và thông minh \cite{patel2021electric}
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\linewidth]{Doan_2_Duong/figure/EV.png}
+        \caption{Tổng đội xe điện toàn cầu (không bao gồm xe buýt điện) ở các khu vực khác nhau trong năm 2010 17. Tại Phần Lan, Pháp, Đức, Hà Lan, Bồ Đào Nha, Thụy Điển và Vương quốc Anh}
+        \label{fig:enter-label}
+    \end{figure}
+
+ Thị trường xe điện đã tăng trưởng nhanh chóng trong thập kỷ qua, đặc biệt là tại Trung Quốc, Châu Âu, và Mỹ. Sự phát triển công nghệ pin đã giảm chi phí pin từ 870 €/kWh (năm 2010) xuống còn khoảng 170–215 €/kWh (năm 2017). Các chính sách hỗ trợ như miễn thuế, trợ giá, và phát triển hạ tầng sạc đóng vai trò quan trọng trong việc thúc đẩy người dùng chấp nhận EV. Dự báo đến năm 2040, số lượng xe điện toàn cầu có thể đạt 1 tỷ chiếc, với chi phí pin giảm thêm 50\% so với hiện tại. Tuy nhiên, để đạt được mục tiêu này, cần có thêm nghiên cứu về tích hợp công nghệ EV, cải tiến chuỗi cung ứng, và tối ưu hóa hạ tầng sạc.\cite{kittner2020electric}
+
+ EV được phân loại thành ba nhóm chính: xe điện thuần (PEV), xe lai điện (HEV) và xe điện dùng pin nhiên liệu (FCEV). Mỗi loại đều có ưu và nhược điểm riêng, ví dụ như PEV không phát thải tại chỗ nhưng bị giới hạn bởi công nghệ pin, HEV kết hợp động cơ đốt trong và điện để tăng hiệu suất nhưng vẫn phát thải khí, trong khi FCEV sử dụng pin nhiên liệu hydro nhưng đối mặt với chi phí cao và hạn chế về hạ tầng. Trong đó có các công nghệ quan trọng như hệ thống pin (kẽm-bromide, siêu tụ điện), thiết bị điện tử công suất và hệ thống quản lý năng lượng (EMS) nhằm cải thiện hiệu suất và khả năng lưu trữ. \cite{ding2017electric} 
+Để có được công nghệ pin tối ưu nhất cho xe điện, trước tiên ta cần xem xét các loại pin đang được sử dụng phổ biến hiện nay:  
+Pin niken hydrua kim loại,
+Pin Nickel-Cadmium,
+Pin Lithium-ion,
+Pin chì-axit ... 
+Trong đó được ứng dụng rộng rãi nhất trong xe điện, điện thoại, máy ảnh … là pin Lithium ion và Pin chì-axit 
+
+
+    \begin{figure}[!ht]
+        \centering
+        \includegraphics[width=0.7\linewidth]{Doan_2_Duong/figure/pin.png} % Link to figure
+        \caption{So sánh về chi phí năng lượng và số lượng pin yêu cầu của pin Lithium-ion và ắc quy axit-chì} % figure name
+        \label{hinh31}  % cross-reference for figure
+    \end{figure}
+
+\newpage
+Bài báo \textit{"Techno-economic analysis of lithium-ion and lead-acid batteries in stationary energy storage application"} so sánh pin lithium-ion (Li-ion) và ắc quy axit-chì trong hệ thống lưu trữ năng lượng mặt trời. Kết quả ở hình \ref{hinh31} minh họa rằng pin Li-ion giảm chi phí năng lượng và tăng hiệu quả lưu trữ. Ngoài ra, pin Li-ion còn có tuổi thọ cao hơn, hiệu suất tốt hơn và số lượng yêu cầu ít hơn 40\%.\cite{kebede2021techno}
+ Hơn thế nữa, nhiều nghiên cứu cũng chỉ ra rằng công nghệ Pin lithium-ion
+ (LIBs) đặc biệt phù hợp cho xe điện với nhiều ưu điểm vượt trội. LIBs có mật độ
+ năng lượng cao, cho phép lưu trữ nhiều năng lượng hơn trong một kích thước và trọng
+ lượng nhỏ, giúp các phương tiện di chuyển xa hơn mà không cần tăng kích thước pin.
+ Hiệu suất sạc-xả của LIBs vượt trội với tổn thất năng lượng thấp, đảm bảo tối ưu hóa
+ sử dụng năng lượng và giảm chi phí vận hành. Ngoài ra, LIBs có tuổi thọ dài, chịu
+ được hàng nghìn chu kỳ sạc-xả, kéo dài từ 8–10 năm hoặc hơn, góp phần tăng độ bền
+ và kinh tế của các thiết bị sử dụng pin. \cite{s2022lithium}\cite{camargos2022perspectives} Do đó, pin Lithium-ion được sử dụng
+ trong đồ án và trong Phần 1.2.1 đưa ra tổng quan về pin Lithium-ion
+
+
+
+
+
+
+
+
+ \newpage
+\subsection{Giới thiệu về pin Lithium-ion}
+\subsubsection{Cấu trúc tổng quan của Pin Lithium-ion}
+
+Pin Lithium-ion có cấu tạo cơ bản bao gồm các thành phần chính: cực dương (\textit{cathode}), cực âm (\textit{anode}), chất điện phân và màng ngăn. Cực dương thường được làm từ các hợp chất oxit kim loại chứa lithium, điển hình là $\text{LiCoO}_2$, $\text{LiFePO}_4$, hoặc $\text{LiNiMnCoO}_2$. Cực âm thường sử dụng graphite hoặc các vật liệu carbon khác, có chức năng lưu trữ ion lithium trong quá trình sạc và giải phóng khi phóng điện. Chất điện phân là dung dịch chứa muối lithium như $\text{LiPF}_6$ hòa tan trong dung môi hữu cơ, đảm bảo quá trình di chuyển của ion lithium giữa hai cực. Màng ngăn, thường làm từ polymer, ngăn cách vật lý giữa cực dương và cực âm để tránh đoản mạch nhưng vẫn cho phép ion lithium di chuyển qua. Cấu trúc này cho phép pin Lithium-ion đạt mật độ năng lượng cao, thường là khoảng 220 Wh/kg, với hiệu suất sạc/phóng ổn định và tuổi thọ cao.\cite{KULOVA20207242}
+
+    \begin{figure}[!ht]
+        \centering
+        \includegraphics[width=0.6\linewidth]{Doan_2_Duong/figure/charge.png} % Link to figure
+        \caption{Cấu tạo và nguyên lí hoạt động của pin Lithium-ion} % figure name
+        \label{hinh14}  % cross-reference for figure
+    \end{figure}
+Hình \ref{hinh14} mô tả nguyên lý hoạt động của pin Lithium-ion dựa trên sự di chuyển của các ion lithium (\(Li^+\)) giữa cực âm (\textit{anode}) và cực dương (\textit{cathode}) thông qua chất điện phân. Khi sạc, ion \(Li^+\) di chuyển từ cực dương, qua chất điện phân, đến cực âm và được lưu trữ trong cấu trúc của vật liệu graphite. Ngược lại, khi phóng điện, ion \(Li^+\) di chuyển từ cực âm trở lại cực dương, tạo ra dòng điện phục vụ cho các thiết bị tiêu thụ. Quá trình này xảy ra thông qua các phản ứng oxy hóa-khử: tại cực dương, lithium bị oxy hóa để giải phóng ion \(Li^+\) và electron, trong khi tại cực âm, ion \(Li^+\) kết hợp với electron để tạo thành lithium kim loại. Sự vận chuyển ion qua màng ngăn polymer đảm bảo rằng các cực không tiếp xúc trực tiếp, giúp ngăn ngừa đoản mạch. \cite{TOMASZEWSKA2019100011}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Doan_2_Duong/figure/thongso.png} % Link to figure
+    \caption{Các thông số hoạt động của pin A123 AHR32113M1 } % figure name
+    \label{hinh15}  % cross-reference for figure
+\end{figure}
+
+Một số thông số kỹ thuật quan trọng của pin Lithium-ion: \cite{barcellona2017lithium}\cite{dvorak2017comprehensive}
+\begin{itemize}
+    \item \textbf{Điện áp danh định (Nominal Voltage):} Pin Lithium-ion thường có điện áp danh định khoảng 3,7 V mỗi cell.
+    \item \textbf{Dung lượng (Capacity):} Dung lượng của pin được đo bằng miliampere-giờ (mAh) hoặc ampere-giờ (Ah), biểu thị lượng điện năng mà pin có thể lưu trữ.
+    \item \textbf{Nội trở (Internal Resistance):} Tham số này ảnh hưởng đến hiệu suất và khả năng cung cấp dòng điện cao của pin.
+    \item \textbf{Hiệu suất Coulomb (Coulombic Efficiency):} Tỷ lệ giữa dung lượng sạc và dung lượng xả, phản ánh hiệu suất lưu trữ năng lượng của pin.
+    \item \textbf{Tuổi thọ chu kỳ (Cycle Life):} Số chu kỳ sạc/xả mà pin có thể thực hiện trước khi dung lượng giảm xuống một mức nhất định, thường là 80\% dung lượng ban đầu.
+    \item \textbf{Phạm vi nhiệt độ hoạt động (Operating Temperature Range):} Phạm vi nhiệt độ trong đó pin có thể hoạt động hiệu quả và an toàn.
+    \item \textbf{Tỷ lệ tự xả (Self-Discharge Rate):} Mức độ mất dung lượng khi pin không được sử dụng.
+\end{itemize}
+
+Hình \ref{hinh15} là ví dụ về các thông số kĩ thuật của pin lithium-ion \textit{AHR32113M1} được sản xuất bởi \textit{A123 Systems}
+\newpage
+
+\subsection{Các vấn đề của pin Lithium-ion}
+
+
+\subsubsection{Các vấn đề về nhiệt độ trong quá trình sạc pin}
+\paragraph{Ảnh hưởng của nhiệt độ thấp}\mbox{}
+
+Nhiệt độ là một trong những yếu tố quan trọng nhất ảnh hưởng đến hiệu suất, tuổi thọ và độ an toàn của pin Lithium-ion (LIBs). Ở nhiệt độ thấp (dưới 15°C), độ dẫn ion của chất điện phân giảm, dẫn đến tốc độ khuếch tán của ion lithium giảm. Điều này làm tăng điện trở nội và giảm hiệu suất sạc/xả. 
+Ở nhiệt độ cực thấp, dung lượng khả dụng giảm đáng kể dưới -20°C, và có thể mất đến 70\% so với dung lượng danh định khi nhiệt độ giảm xuống -40°C \cite{bandhauer2011critical}
+Hơn nữa, nếu sạc pin ở nhiệt độ thấp có thể dẫn đến hiện tượng \textit{"lithium plating"} (mạ lithium trên cực âm), gây mất dung lượng vĩnh viễn và có thể làm ngắn mạch nội bộ.
+
+
+\paragraph{Quá trình sinh nhiệt}\mbox{}
+
+
+Trong quá trình pin lithium-ion (LIBs) hoạt động, , nhiệt lượng sinh ra từ quá trình thuận nghịch và bất thuận nghịch. Quá trình thuận nghịch liên quan đến nhiệt entropy (\textit{entropic heat}), có thể hấp thụ hoặc giải phóng khi sạc/xả. Trong khi đó, quá trình bất thuận nghịch là nguyên nhân chính gây nóng pin, bao gồm: quá thế (\textit{polarization heat}) do chênh lệch điện áp, điện trở ohmic (\textit{ohmic heating}) sinh nhiệt Joule, trộn ion (\textit{mixing heat}) do chênh lệch nồng độ ion, và sự phân hủy nhiệt (\textit{thermal decomposition}) khi vật liệu điện cực suy thoái ở nhiệt độ cao.
+
+
+
+
+
+
+
+
+\paragraph{Ảnh hưởng của nhiệt độ cao}\mbox{}
+
+Khi nhiệt độ tăng trên 50°C, các vật liệu điện cực bị thay đổi cấu trúc, các vật liệu làm cực dương \textit{(Cathode)} và cực âm \textit{(Anode)} bị phá vỡ hoặc tái sắp xếp cấu trúc tinh thể gây giảm hiệu suất và mất dung lượng pin. 
+Ngoài ra, sự mất cân bằng điện hóa xảy ra khi các phản ứng phụ diễn ra không đồng đều giữa cực dương và cực âm, làm mất cân bằng điện áp giữa các cell trong một pack pin. Điều này có thể dẫn đến hiện tượng quá sạc hoặc quá xả một số cell, gây suy giảm tuổi thọ của pin.
+Hơn thế nữa, lớp \textit{SEI (Solid Electrolyte Interphase)} vốn được hình thành tự nhiên trên bề mặt cực âm do phản ứng với chất điện phân. Ở nhiệt độ cao, SEI có thể bị phá vỡ và tái tạo nhiều lần hoặc hình thành không đồng đều làm tiêu tốn lithium và tăng nội trở. 
+Nếu lớp SEI bị phá vỡ, lithium có thể phản ứng trực tiếp với dung môi, tạo ra khí và chất rắn không mong muốn.
+Ở mức nhiệt độ cao hơn (khoảng 70°C trở lên), các phản ứng phụ với điện cực có thể làm hỏng cấu trúc vật liệu, khiến dung lượng pin giảm đáng kể.\cite{ma2018temperature}
+
+\paragraph{Hiện tượng Thermal Runaway}\mbox{}
+
+Thermal runaway là kết quả của hàng loạt phản ứng tỏa nhiệt mạnh trong pin. Quá trình này bắt đầu với sự phân hủy lớp SEI (\textit{Solid Electrolyte Interphase}) ở nhiệt độ khoảng 90–120°C. Lớp SEI, vốn có chức năng bảo vệ cực âm, bị phá vỡ do nhiệt độ cao, tạo ra các khí dễ cháy như CO$_2$, C$_2$H$_4$, và CH$_4$. Tiếp theo, ở nhiệt độ khoảng 100–130°C, lithium trên cực âm phản ứng với dung môi hữu cơ trong chất điện giải, tạo ra nhiệt và khí dễ cháy. Khi nhiệt độ tiếp tục tăng lên khoảng 130°C, màng ngăn (\textit{separator}) bắt đầu tan chảy, dẫn đến nguy cơ đoản mạch bên trong pin. 
+Ở nhiệt độ cao hơn, khoảng 150–250°C, vật liệu cực dương như LiCoO$_2$ hoặc LiMn$_2$O$_4$ bị phân hủy, giải phóng oxy, thúc đẩy quá trình cháy. Đồng thời, chất điện giải hữu cơ (như ethylene carbonate và diethyl carbonate) bắt đầu phân hủy ở nhiệt độ 200–300°C, gây ra hiện tượng bốc cháy và làm tăng áp suất bên trong pin. Cuối cùng, ở nhiệt độ trên 260°C, chất kết dính PVDF phản ứng với điện cực, phá vỡ liên kết hóa học và sinh ra khí HF độc hại, góp phần làm tăng nhiệt độ pin. 
+Hệ quả của thermal runaway bao gồm việc pin bị phồng và vỡ vỏ do áp suất cao, giải phóng các khí độc như CO, HF, và POF$_3$, cùng với khí dễ cháy. Nếu tiếp xúc với oxy, pin có thể bốc cháy hoặc phát nổ. Đặc biệt, thermal runaway có thể lan truyền từ một cell pin sang các cell khác trong pack pin, gây ra hiện tượng cháy nổ trên diện rộng.\cite{WANG2012210}
+
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Doan_2_Duong/figure/more-1.jpg} % Link to figure
+    \caption{Điện áp và dung lượng pin lithium-ion khi nhiệt độ thay đổi } % figure name
+    \label{hinh17}  % cross-reference for figure
+\end{figure}
+
+Ví dụ giải nhiệt độ an toàn cho pin như hình \ref{hinh17} Do đó, việc duy trì nhiệt độ hoạt động lý tưởng của LIBs trong khoảng từ 15°C đến 45°C là điều cần thiết để đảm bảo hiệu suất tối ưu, an toàn và độ bền lâu dài của pin, đặc biệt là trong các ứng dụng xe điện.
+
+\subsubsection{Các vấn đề sạc nhanh của pin Lithium-ion}
+
+Sạc nhanh pin lithium-ion là một thách thức lớn và là nút thắt quan trọng cản trở sự phát triển quy mô lớn của xe điện, đặc biệt do thời gian sạc kéo dài và những hệ quả tiêu cực liên quan đến hiệu suất và độ bền của pin. Quá trình sạc nhanh không chỉ dẫn đến suy giảm dung lượng và hiệu suất pin nhanh chóng mà còn gây ra hiện tượng gia tăng nhiệt độ đáng kể, làm giảm hiệu quả năng lượng và tiềm ẩn các rủi ro an toàn nghiêm trọng \cite{Xie2020, Zhang2020, Li2020}. Một trong những cơ chế hạn chế chính là hiện tượng mạ lithium (Li plating), xảy ra khi điện thế của anốt graphit giảm xuống dưới 0 V so với Li/Li$^+$, khiến ion lithium không thể xen kẽ vào lớp graphit mà kết tủa thành kim loại lithium trên bề mặt anốt. Hiện tượng này đặc biệt nghiêm trọng ở nhiệt độ thấp (dưới 0\textdegree C) và tốc độ sạc cao, dẫn đến tổn thất dung lượng, tăng trở kháng, phồng pin, hình thành các nhánh dendrite lithium gây đoản mạch và sinh nhiệt, từ đó làm tăng nguy cơ thoát nhiệt (thermal runaway) \cite{Zhang2020, Tomaszewska2019}. Bên cạnh đó, hạn chế về vận chuyển ion trong pin cũng là một yếu tố then chốt. Ở nhiệt độ vừa và cao, điện trở của chất điện phân là yếu tố giới hạn chính do sự hình thành gradient nồng độ ion lithium lớn trong điện ly; ngược lại, ở nhiệt độ thấp, điện trở động học tại giao diện và khuếch tán rắn chậm trong vật liệu điện cực trở thành các cơ chế giới hạn chủ yếu \cite{Hasan2015, Tomaszewska2019}. Khả năng khuếch tán chậm của ion Li$^+$ trong vật liệu catốt lớp khiến catốt trở thành nút cổ chai động học so với anốt. Ngoài ra, vấn đề vật liệu điện cực cũng góp phần đáng kể vào những hạn chế khi sạc nhanh. Anốt graphit dễ bị mạ lithium do điện thế làm việc gần với điện thế kết tủa của Li/Li$^+$, trong khi catốt lớp bị hạn chế bởi tính không ổn định cấu trúc và tốc độ khuếch tán chậm của ion lithium trong mạng tinh thể \cite{Xie2020, Li2020}. Sạc nhanh cũng có thể gây ra biến dạng cơ học như nứt hạt, bong tách lớp và phân rã vật liệu do ứng suất sinh ra bởi gradient nồng độ lithium, từ đó dẫn đến mất vật liệu hoạt động (loss of active material - LAM) và tổn thất lithium khả dụng (loss of lithium inventory - LLI) \cite{Tomaszewska2019, Zhang2016}. Tóm lại, sạc nhanh là một vấn đề mang tính đa ngành, đòi hỏi sự tích hợp giữa cải tiến vật liệu điện cực, thiết kế cấu trúc pin, quản lý nhiệt độ, cũng như các thuật toán sạc tối ưu nhằm đạt được sự cân bằng giữa tốc độ sạc, tuổi thọ và độ an toàn của pin lithium-ion \cite{Xie2020, Hasan2015, Zhang2016, Li2020}.
+
+
+
+
+\subsection{Lựa chọn phương pháp sạc}
+Nhằm giải quyết các thách thức liên quan đến thời gian sạc, kiểm soát nhiệt độ và tuổi thọ của pin lithium-ion (LIB), nhiều phương pháp sạc khác nhau đã được nghiên cứu và phát triển. Trong các ứng dụng như xe điện (EV), yêu cầu về khả năng sạc nhanh thường mâu thuẫn với mục tiêu duy trì độ bền và hiệu suất của pin trong dài hạn. Đặc biệt, dòng sạc cao — đặc trưng của các chiến lược sạc nhanh — là một trong những nguyên nhân chính gây suy giảm hiệu suất và tuổi thọ pin \cite{ref9, ref12, ref18}. Các hiện tượng lão hóa như hình thành lớp điện phân rắn (SEI), mạ lithium trên cực âm, và suy thoái cơ học được xác định là những yếu tố chủ chốt trong quá trình này \cite{ ref18, ref31}. Những cơ chế này chịu ảnh hưởng mạnh bởi các thông số vận hành như tốc độ C-rate, nhiệt độ, trạng thái sạc (SOC) và trạng thái sức khỏe (SOH) của pin \cite{ref10, ref22}.
+Các thông số sạc có thể biến đổi đáng kể tùy theo điều kiện thực tế. Tuy nhiên, trong thực tế, LIB thường hoạt động trong các điều kiện khắc nghiệt làm gia tăng các phản ứng phụ không mong muốn, ảnh hưởng tiêu cực đến hiệu suất và độ bền của pin \cite{ref18, ref25}. Đặc biệt, dòng sạc hoặc xả lớn gây phát nhiệt mạnh, làm tăng nguy cơ mất an toàn khi vận hành \cite{ref40}. Do đó, việc tối ưu hoá chiến lược sạc không chỉ hướng đến cải thiện hiệu suất tức thời mà còn là giải pháp quan trọng để kéo dài tuổi thọ pin và đảm bảo an toàn trong suốt vòng đời sử dụng \cite{ref13, ref19}.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=1\linewidth]{Doan_2_Duong/figure/ppsac.png}
+    \caption{Các phương pháp sạc khác nhau cho pin lithium-ion: (a) phương pháp \textit{CCCV} tiêu chuẩn; (b) phương pháp sạc tăng cường (\textit{BC}); (c) phương pháp sạc xung dương (\textit{PPC}); (d) phương pháp sạc xung âm kết hợp với \textit{PPC}; (e) chiến lược sạc nhiều giai đoạn dòng không đổi (\textit{MSCC})}
+    \label{ppsac}
+\end{figure}
+
+Phương pháp sạc tiêu chuẩn cho LIB hiện nay là phương pháp dòng điện không đổi - điện áp không đổi (\textit{Constant Current – Constant Voltage - CCCV}). Phương pháp này gồm hai giai đoạn như thể hiện trong Hình~\ref{ppsac}(a) \cite{ref11, ref33}. Ở giai đoạn đầu, LIB được sạc bằng dòng điện không đổi (CC), ký hiệu là $I_\mathrm{ch}$, cho đến khi đạt đến điện áp tối đa $V_\mathrm{max}$. Ở giai đoạn thứ hai, pin tiếp tục được sạc ở chế độ điện áp không đổi (CV) cho đến khi dòng sạc giảm xuống giá trị dòng cắt $I_\mathrm{end}$ (thường là 5\% dòng định mức) hoặc cho đến khi đạt đến thời gian tối đa $t_\mathrm{max}$. Trong đó, $I_\mathrm{ch}$ có ảnh hưởng lớn nhất đến tốc độ sạc, còn $V_\mathrm{max}$ và $I_\mathrm{end}$ quyết định dung lượng sạc \cite{ref33}. Thông thường, nhà sản xuất sẽ quy định mức $I_\mathrm{ch}$ phù hợp với loại hóa học của pin \cite{ref30}. Tuy nhiên, sạc ở tốc độ C-rate cao sẽ gây ảnh hưởng tiêu cực đến sức khỏe của LIB. CCCV đơn giản, dễ triển khai nhưng mất thời gian ở giai đoạn điện áp không đổi, không phù hợp cho sạc nhanh. \cite{ref13, ref18}.
+
+ Một kỹ thuật nhằm cải thiện tốc độ sạc của LIB là sạc tăng cường (\textit{Boost Charging - BC}), là biến thể của CCCV, trong đó sử dụng dòng sạc cao hơn hoặc công suất không đổi (CP) ở giai đoạn đầu của quá trình sạc \cite{ref34}. Do LIB ít nhạy cảm với hiện tượng mạ lithium khi SOC thấp, nên việc tăng cường dòng sạc ở thời điểm đầu sẽ rút ngắn thời gian sạc mà không làm suy giảm tuổi thọ chu kỳ. Chiến lược sạc BC được minh họa ở Hình~\ref{ppsac}(b). Trong phương pháp này, pin được sạc bằng dòng cao $I_\mathrm{boost}$ cho đến khi SOC đạt khoảng 40\%, sau đó quay trở lại quy trình CCCV truyền thống \cite{ref34}. Mức dòng $I_\mathrm{boost}$ có thể được điều chỉnh để kiểm soát tốc độ sạc. Khi giai đoạn boost nằm trong khoảng 20\%–60\% SOC, một nghiên cứu đã chỉ ra rằng sạc boost không gây suy giảm dung lượng của LIB, trong khi vẫn giảm thời gian sạc hiệu quả. 
+ 
+Bên cạnh đó, kỹ thuật sạc xung (\textit{Pulse Charging}) cũng được nhiều tác giả đề xuất để giảm thời gian sạc, giảm phát nhiệt và kéo dài tuổi thọ pin \cite{ref35, ref36}. Có nhiều kiểu xung dòng khác nhau tùy thuộc vào tần số, biên độ và chu kỳ làm việc. Phương pháp này dựa trên việc thay đổi chu kỳ dòng sạc một cách tuần hoàn, với mức dòng biến thiên theo cả hướng và biên độ.
+
+Một dạng phổ biến là dòng xung dương (\textit{Positive Pulse Current - PPC}), nghiên cứu cho thấy PPC có thể kéo dài tuổi thọ LIB lên đến 60\% ở tần số thấp (0.05 Hz) và 105\% ở tần số cao (2 kHz) \cite{ref36}. 
+ Một kỹ thuật tương tự là dòng xung âm (\textit{Negative Pulse Current - NPC}), trong đó xen kẽ các xung xả nhỏ trong quá trình sạc \cite{ref37, ref38}. Theo một số nghiên cứu, NPC có thể tăng mức sử dụng vật liệu hoạt tính, từ đó cải thiện dung lượng xả và kéo dài tuổi thọ \cite{ref38}.
+Nhìn chung, các phương pháp sạc xung (PPC, NPC) hoặc tăng cường (BC) có thể cải thiện thời gian sạc nhưng phức tạp và đòi hỏi điều khiển chính xác \cite{ref36, ref38}.
+
+ Một kỹ thuật khác là sạc dòng không đổi nhiều giai đoạn (\textit{Multi-Stage Constant Current - MSCC}), được nhiều nhà nghiên cứu đề xuất nhằm giảm thời gian sạc, nâng cao hiệu suất và kéo dài tuổi thọ LIB \cite{ref39, ref29}. Hình~\ref{ppsac}(e) mô tả nguyên lý của sạc MSCC. Một số nghiên cứu cho thấy sạc ba giai đoạn vượt trội hơn CCCV về thời gian và dung lượng sạc/xả \cite{ref29}. Một số khác tối ưu tốc độ C-rate cho bốn hoặc năm giai đoạn, ghi nhận giảm 5.33\% thời gian sạc, tăng 12.54\% hiệu suất và kéo dài tuổi thọ 79.6\% \cite{ref39}. Một nghiên cứu khác chỉ ra MSCC có thể giảm mạ lithium và giữ dung lượng tốt hơn CCCV \cite{ref19}. MSCC được coi là phương pháp tiềm năng nhất khi nó được chứng minh có thể cân bằng giữa tốc độ sạc, hiệu suất và tuổi thọ pin. \cite{ref29, ref39}. 
+
+
+\subsection{Phương pháp xác định dòng sạc trong MSCC}
+
+Trong phương pháp sạc nhiều giai đoạn dòng không đổi (MSCC), việc xác định dòng điện sạc ở mỗi giai đoạn là yếu tố then chốt ảnh hưởng đến thời gian sạc, hiệu suất và tuổi thọ của pin Lithium-ion (LIB). Tuy nhiên, hiện nay chưa có tiêu chuẩn chung nào được thống nhất để xác định các giá trị dòng sạc tối ưu cho từng giai đoạn. Các nghiên cứu hiện tại thường sử dụng ba hướng tiếp cận chính để xác định dòng sạc: dựa trên thực nghiệm, dựa trên phân tích và sử dụng các thuật toán tối ưu hóa.
+
+\subsubsection{Dựa trên thực nghiệm}
+
+Phương pháp thực nghiệm tiến hành thử nghiệm nhiều tổ hợp hệ số C-rate khác nhau và đánh giá hiệu suất thông qua các tiêu chí như thời gian sạc, nhiệt độ sinh ra, dung lượng sạc/xả và tuổi thọ pin. Ví dụ, một nghiên cứu đã tiến hành 36 thí nghiệm để tìm ra tổ hợp hệ số C-rate phù hợp là 0.6C, 0.3C, 0.15C và 0.1C. Các giá trị này thường được chọn ngẫu nhiên ban đầu, sau đó hiệu chỉnh qua nhiều vòng lặp thực nghiệm \cite{ref58}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Doan_2_Duong/figure/THUCNGHIEM.png}
+    \caption{Lưu đồ xác định C-rate tối ưu bằng thực nghiệm}
+    \label{fig:thucnghiem}
+\end{figure}
+
+Phương pháp này mang lại độ tin cậy cao nhưng đòi hỏi thời gian và chi phí lớn. Hơn nữa, các tiêu chí chuyển giai đoạn (dựa vào thời gian, SOC hay điện áp ngắt) và bộ C-rate tối ưu được đề xuất trong các nghiên cứu là khác nhau, dẫn đến sự thiếu đồng nhất về mặt kết luận \cite{ref50,ref58}.
+
+\subsubsection{Phương pháp phân tích}
+
+Một kỹ thuật phân tích cũng có thể xác định dòng sạc tối ưu để sạc pin LIB bằng chiến lược MSCC. Các tác giả đã phân tích các phương trình vi phân thông qua mô hình mạch điện R-C đơn giản và sử dụng phép thử đạo hàm bậc nhất để tối thiểu hóa thời gian sạc \cite{ref51,ref75}. Dòng sạc tối ưu được xác định bằng số học sử dụng phương trình \eqref{eq:RC} và sau đó được kiểm chứng thông qua thực nghiệm \cite{ref62}.
+
+\begin{equation}
+\label{eq:RC}
+I_n = \sqrt{I_{n-1} \times I_{n+1}}, \quad n \geq 3
+\end{equation}
+
+Trong trường hợp này, \( I_n \) biểu thị dòng điện ở giai đoạn thứ \( n \), với \( I_{n-1} \) biểu thị dòng điện ở giai đoạn trước đó và \( I_{n+1} \) biểu thị dòng điện ở giai đoạn tiếp theo. Phương pháp này yêu cầu dòng điện sạc ở giai đoạn đầu và giai đoạn cuối đã được nhà sản xuất xác định trước, và số lượng giai đoạn phải là số lẻ. Phương pháp phân tích tuy trực quan về mặt toán học nhưng với mô hình pin phức tạp hơn (VD: Mô hình Thevenin, DP ...), phương pháp này tỏ ra không hiệu quả. 
+
+
+\subsubsection{Phương pháp tối ưu hóa}
+
+Phương pháp tối ưu hóa sử dụng các thuật toán thông minh để tìm kiếm bộ dòng sạc tối ưu sao cho thoả mãn các ràng buộc về thời gian, nhiệt độ, SOC, hiệu suất và tuổi thọ pin. Các thuật toán thường được sử dụng bao gồm: thuật toán Taguchi \cite{ref30,ref47}, tối ưu bầy đàn (PSO) \cite{ref68,ref80}, thuật toán di truyền (GA) \cite{ref73}, tối ưu số học \cite{ref92} và tối ưu sói xám (GWO) \cite{ref52}.
+
+Bài toán tối ưu tổng quát có thể được biểu diễn dưới dạng sau:
+\begin{equation}
+\label{eq:objective}
+\min f(x) = \{I_1, I_2, \dots, I_n\}
+\end{equation}
+
+Với các ràng buộc:
+\begin{align}
+t_c &\leq t_{\text{max}} \label{eq:time_constraint} \\
+SOC_c &\geq SOC_{\text{min}} \label{eq:soc_constraint} \\
+T_c(t) &\leq T_{\text{max}} \quad \forall t \in [t_0, t_c] \label{eq:temp_constraint} \\
+\Delta T_c(t) &\leq \Delta T_{\text{max}} \quad \forall t \in [t_0, t_c] \label{eq:deltatemp_constraint} \\
+I_{\text{lb}} &\leq I_j \leq I_{\text{ub}} \quad \forall j \in [1, n] \label{eq:current_constraint}
+\end{align}
+
+Hàm mục tiêu thay đổi tùy theo ứng dụng. Mục tiêu chính là tìm mô hình sạc tối ưu giúp giảm thời gian sạc trong khi vẫn đảm bảo tuổi thọ chu kỳ đủ dài cho pin LIB trong các ứng dụng xe điện. Do đó, hàm mục tiêu được định nghĩa trong phương trình \eqref{eq:objective} là tìm các dòng điện thấp hơn ở mỗi giai đoạn trong khi vẫn duy trì hiệu suất và tuổi thọ tốt. Trong phương trình \eqref{eq:time_constraint}, $t_{\text{max}}$ được điều chỉnh để tăng dòng điện sạc và cân bằng hàm mục tiêu. Phương trình \eqref{eq:time_constraint} được sử dụng để giảm thời gian sạc ($t_c$). Phương trình \eqref{eq:soc_constraint} tích hợp mức SOC tối thiểu ($SOC_{\text{min}}$) vào chiến lược sạc MSCC ($SOC_c$) trong quá trình sạc. Ràng buộc nhiệt được biểu diễn thông qua phương trình \eqref{eq:temp_constraint} và \eqref{eq:deltatemp_constraint}, trong đó $T_c$ là nhiệt độ trong quá trình sạc và $\Delta T$ thể hiện sự thay đổi nhiệt độ. Ràng buộc dòng điện trong phương trình \eqref{eq:current_constraint} bao gồm cả giới hạn trên ($I_{\text{ub}}$) và giới hạn dưới ($I_{\text{lb}}$) của phạm vi dòng điện.
+Phương pháp này có ưu điểm là khả năng tự động tìm lời giải tối ưu và dễ mở rộng cho nhiều loại pin và điều kiện hoạt động khác nhau.
+
+
+\subsubsection{Lựa chọn phương pháp xác định dòng sạc}
+Các yếu tố để đánh giá các phương pháp xác định dòng sạc của phương pháp MSCC cần được xem xét khi thiết kế: 
+\begin{itemize}
+    \item Độ chính xác 
+    \item Thời gian thực hiện
+    \item Khả năng tổng quát và mở rộng
+    \item Xử lý đa mục tiêu, ràng buộc 
+    \item Tính đơn giản, trực quan
+\end{itemize}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Doan_2_Duong/figure/sosanhpp.png}
+    \caption{Đánh giá các phương pháp xác định dòng sạc}
+    \label{tongquan}
+\end{figure}
+
+Dựa trên các phân tích đã trình bày trên, Hình \ref{tongquan}. đưa ra biểu đồ radar so sánh các phương pháp sạc pin dựa theo năm tiêu chí và đánh giá tổng quan về từng phương pháp sạc được đưa ra. Có thể thấy, phương pháp tối ưu hóa vượt trội hơn hẳn về khả năng xử lý bài toán đa mục tiêu, linh hoạt trong việc mở rộng, khả năng mô hình hóa các điều kiện ràng buộc thực tế và tự động hóa quá trình tìm kiếm dòng sạc phù hợp. Tuy không đơn giản về mặt triển khai và yêu cầu mô hình hóa phù hợp, nhưng với sự phát triển mạnh mẽ của các thuật toán tối ưu hiện nay, phương pháp này cho phép tiếp cận lời giải tối ưu trong thời gian ngắn, đồng thời đảm bảo các tiêu chí khắt khe về hiệu suất và tuổi thọ pin trong các ứng dụng như xe điện.
+
+Dựa trên những phân tích và đánh giá đã trình bày, cũng như do giới hạn về thời gian và phạm vi nghiên cứu, đồ án này lựa chọn hướng tiếp cận tối ưu hóa để xác định bộ dòng sạc tối ưu cho chiến lược sạc nhiều giai đoạn MSCC. Trong đó, một thuật toán metaheuristic cụ thể sẽ được nghiên cứu, cài đặt và đánh giá nhằm tối ưu hóa bộ dòng sạc theo các tiêu chí về thời gian sạc, nhiệt độ, trạng thái sạc (SOC) và hiệu suất năng lượng. Thiết kế được phân tích từ cơ sở lý thuyết, từ cơ sở lý thuyết phục vụ quá trình thiết kế, cuối cùng mô phỏng và thực nghiệm được thực hiện để kiểm chứng lại.
+
+\begin{itemize}
+    \item Chương 1. Giới thiệu chung về bộ sạc xe máy điện, pin, vấn đề của pin lithium-ion và đưa ra bài toán tối ưu
+    \item Chương 2. Đưa ra cơ sở lý thuyết đối với phương pháp sạc MSCC
+    \item Chương 3. Áp dụng cơ sở lý thuyết vào tính toán phương pháp sạc MSCC
+    \item Chương 4. Kết quả mô phỏng kiểm chứng lại thiết kế
+    \item Chương 5. Thực nghiệm phương pháp sạc MSCC được đưa ra kiểm chứng về thời gian, hiệu suất, dung lượng sạc pin Lithium-ion
+\end{itemize}
+
+
+
+\newpage
+%---------------------------------------------------------%%
+%% ----------CHAPTER 2 -------------------%%
+%---------------------------------------------------------%%
+\section*{CHƯƠNG 2. CƠ SỞ LÝ THUYẾT}
+    \addcontentsline{toc}{section}{\numberline{} CHƯƠNG 2. CƠ SỞ LÝ THUYẾT}
+
+\setcounter{section}{2}
+    \setcounter{subsection}{0}
+        \setcounter{figure}{0}
+            \setcounter{table}{0}
+%---------------------------------------------------------%
+
+ Trong Chương 2, cơ sở lý thuyết về phương pháp sạc MSCC được đưa ra
+ đồng tổng quan về các phương án giải quyết vấn đề đề cập ở Chương 1 được xây dựng từ đó cung cấp các cơ sở để phục vụ tính toán, tối ưu ở Chương 3
+
+\subsection{Tổng quan phương pháp sạc MSCC}
+
+Sạc nhanh là một trong những giải pháp then chốt để khắc phục vấn đề lo lắng về quãng đường di chuyển (\textit{range anxiety}) vốn là rào cản đối với việc triển khai xe điện (EV) \cite{ref65,ref66}. Việc phát triển chiến lược sạc đóng vai trò quan trọng trong việc nâng cao trải nghiệm người dùng EV, đồng thời cải thiện hiệu suất sạc, rút ngắn thời gian sạc, kéo dài tuổi thọ và nâng cao độ an toàn của pin lithium-ion (LIB) \cite{ref68,ref69}. Một trong những chiến lược sạc chính có thể giải quyết các khía cạnh nêu trên là sạc MSCC (\textit{Multi-Stage Constant Current}).
+Theo yêu cầu thiết kế của quá trình sạc pin, dòng điện không đổi (CC) trong quá trình sạc được chia thành nhiều giai đoạn với tốc độ C-rate giảm dần trong chiến lược sạc MSCC. Việc giảm dần cường độ dòng điện giúp hạn chế đáng kể hiện tượng kết tủa lithium ở cực âm của pin trong quá trình sạc liên tục với dòng điện lớn, như minh họa trong Hình \ref{msccc} \cite{ref55}. Hơn nữa, so với chiến lược sạc CCCV (\textit{Constant Current Constant Voltage}), phương pháp sạc MSCC loại bỏ giai đoạn sạc điện áp không đổi (CV). Nhờ đó, quá trình oxy hóa chất điện phân do điện áp cao gây ra được giảm thiểu \cite{ref70}. Do đó, phương pháp sạc MSCC đã thu hút sự quan tâm lớn từ nhiều nhà nghiên cứu.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Doan_2_Duong/figure/MSCC1.png}
+    \caption{Phương pháp sạc MSCC}
+    \label{msccc}
+\end{figure}
+
+Dựa trên khái niệm đa giai đoạn, nhiều nghiên cứu đã đề xuất số giai đoạn sạc dao động từ ba đến mười, và kết quả thu được khá đa dạng. Ngoài ra, tiêu chí chuyển đổi giữa các giai đoạn cũng khác nhau, và cường độ dòng điện ở mỗi giai đoạn thay đổi tùy theo phương pháp xác định C-rate.
+
+
+\subsection{Các tiêu chí đánh giá hiệu suất sạc của phương pháp MSCC}
+\subsubsection{Thời gian sạc}
+
+Thời gian sạc được xác định bởi tốc độ sạc (C-rate); C-rate càng cao, thời gian sạc càng ngắn. Tốc độ sạc C-rate được tính bằng công thức:
+
+\begin{equation}
+    C\text{-rate} = \frac{I_{\text{sạc}}}{C_{\text{định mức}}}
+\end{equation}
+
+Trong đó $I_{\text{sạc}}$ là dòng điện sạc (\si{\ampere}) và $C_{\text{định mức}}$ là dung lượng định mức của pin (\si{\ampere\hour}).
+Tuy nhiên, việc tăng C-rate trong quá trình sạc có tác động tiêu cực đến hiệu suất sạc và tuổi thọ chu kỳ của pin. Dòng sạc cao hơn (trong giới hạn cho phép của nhà sản xuất) ở mức \textit{SoC} thấp (\textit{State of Charge} - trạng thái tích điện) ít ảnh hưởng xấu đến tuổi thọ và các thông số hiệu suất của pin lithium-ion (\textit{LIB}) \cite{ref71}.
+Khi \textit{SOC} vượt ngưỡng nhất định (thường từ 40\%--50\%), dòng sạc cao sẽ gây tác động tiêu cực do hiện tượng \textbf{phân cực} (\textit{polarization}). Phân cực xảy ra khi ion Li\textsuperscript{+} (lithium) được \textbf{chèn vào cực âm} (\textit{anode}), dẫn đến \textbf{suy giảm dung lượng pin}.
+Trong chiến lược sạc \textit{MSCC} (\textit{Multi-Stage Constant Current}), dòng sạc được giảm dần từ C-rate cao xuống C-rate thấp nhằm \textbf{rút ngắn thời gian sạc} đồng thời \textbf{giảm thiểu hiệu ứng phân cực} lên pin \textit{LIB} \cite{ref71}.
+
+
+
+\subsubsection{Hiệu suất sạc}
+
+
+Hiệu suất sạc là một trong những chỉ số hiệu suất quan trọng trong quy trình sạc pin lithium-ion (\textit{LIB}). Hiệu suất sạc được định nghĩa là tỷ lệ giữa dung lượng xả thu được từ pin LIB sau khi sạc so với dung lượng nạp vào trong quá trình sạc. Hiệu suất sạc được tính toán bằng công thức:
+
+\begin{equation}
+\eta (\%) = \frac{\sum_{i=1}^{n} I_d \cdot t_d}{\sum_{i=1}^{n} I_c \cdot t_c} \times 100
+\label{eq:charging_efficiency}
+\end{equation}
+
+Trong công thức \eqref{eq:charging_efficiency}   $n$, $I_d$, $t_d$, $I_c$, và $t_c$ lần lượt biểu thị số giai đoạn, dòng điện xả, thời gian xả, dòng điện sạc và thời gian sạc. Trong phương pháp CCCV, tổn thất dung lượng trong quá trình sạc tăng lên khi tốc độ C-rate tăng. Cùng một khái niệm này được áp dụng cho chiến lược sạc MSCC đối với các C-rate cao hơn. Tuy nhiên, tổn thất năng lượng được giảm thiểu nhờ số lượng giai đoạn sạc thay đổi so với phương pháp CCCV. Việc giảm tổn thất năng lượng là điều cần thiết để cải thiện hiệu suất sạc. Trong một số trường hợp, thời gian sạc và tổn thất năng lượng mâu thuẫn với nhau \cite{ref72,ref73}
+
+
+
+
+\subsubsection{Dung lượng sạc/xả}
+
+Một thông số hiệu suất quan trọng khác là dung lượng sạc/xả. Toàn bộ lượng điện tích được tích trữ trong pin LIB trong quá trình sạc được gọi là dung lượng sạc. Dung lượng sạc sẽ thay đổi tùy thuộc vào các điều kiện vận hành như nhiệt độ môi trường, dòng điện sạc ở giai đoạn cuối cùng và tiêu chí kết thúc sạc. Pin LIB không thể sạc đầy ở nhiệt độ \SI{0}{\degreeCelsius} hoặc nhiệt độ âm \cite{ref60}. Tương tự, dung lượng xả là tổng lượng năng lượng có thể rút ra trong quá trình xả pin LIB. Dung lượng sạc và xả chuẩn hóa có thể được đánh giá bằng các công thức sau \cite{ref51}:
+\begin{align}
+NCC &= \frac{C_{c-MSCC}}{C_{c-CCCV}} \quad  \label{eq:ncc} \\
+NDC &= \frac{C_{d-MSCC}}{C_{d-CCCV}} \quad  \label{eq:ndc}
+\end{align}
+
+Các thông số được định nghĩa như sau: \textbf{NCC} (Dung lượng sạc chuẩn hóa), \textbf{NDC} (Dung lượng xả chuẩn hóa), $C_{c-MSCC}$ (Dung lượng sạc khi sử dụng phương pháp MSCC), $C_{c-CCCV}$ (Dung lượng sạc khi sử dụng phương pháp CCCV), $C_{d-MSCC}$ (Dung lượng xả của pin được sạc bằng phương pháp MSCC), và $C_{d-CCCV}$ (Dung lượng xả của pin được sạc bằng phương pháp CCCV). Dung lượng sạc và xả được so sánh với phương pháp sạc tiêu chuẩn (CCCV). Chiến lược sạc MSCC có tác động tích cực đến dung lượng sạc và xả của pin LIB so với phương pháp CCCV \cite{ref51,ref55,ref60}.
+
+\subsubsection{Nhiệt độ}
+
+
+Sự gia tăng nhiệt độ trong quá trình sạc có tác động tiêu cực đến hiệu suất và tuổi thọ của pin lithium-ion (LIB). Trong quá trình sạc nhanh, một lượng nhiệt đáng kể được sinh ra \cite{ref40,ref77}. Nhiệt sinh ra do tổn thất điện trở (ohmic) tỷ lệ thuận với bình phương của dòng điện hiệu dụng (RMS). Khi dòng điện tăng lên, nhiệt độ của pin LIB cũng tăng theo. Ngoài ra, pin LIB đôi khi có thể rơi vào tình trạng thoát nhiệt (thermal runaway) do lượng nhiệt sinh ra quá lớn \cite{ref78,ref79}. Do đó, sự gia tăng nhiệt độ trong quá trình sạc có ảnh hưởng xấu đến hiệu suất tổng thể và tuổi thọ của pin LIB.
+
+
+
+\subsubsection{Tuổi thọ}
+
+Nhiều phương pháp có thể được sử dụng để xác định tuổi thọ chu kỳ của pin lithium-ion (LIB). Thông thường, bài kiểm tra lão hóa được thực hiện ở các chế độ sạc khác nhau của chiến lược sạc MSCC và so sánh với phương pháp CCCV hoặc CC. Tuổi thọ chu kỳ phụ thuộc vào thành phần hóa học và cấu tạo (chất điện phân, điện cực và vật liệu ngăn cách) của pin LIB. Tùy thuộc vào điều kiện vận hành (nhiệt độ, dòng điện và điện áp), các thành phần hoạt động của LIB sẽ suy giảm theo thời gian và tuổi thọ chu kỳ cũng giảm theo.
+
+Nhiều phương pháp khác nhau đã được sử dụng để đánh giá tuổi thọ và hiệu suất. Tốc độ C-rate tối ưu được xác định bằng nhiều kỹ thuật, bao gồm phương pháp thực nghiệm, kỹ thuật phân tích và phương pháp tối ưu hóa. Nhiều phương pháp chuyển tiếp từ giai đoạn sạc này sang giai đoạn khác cũng đã được đề xuất và kiểm chứng.
+Theo đó, chiến lược sạc MSCC cải thiện các chỉ số hiệu suất và tuổi thọ. Ví dụ, trong tài liệu \cite{ref50}, các tác giả đã tiến hành nhiều thí nghiệm và phát hiện ra rằng sạc ba giai đoạn giúp giảm thời gian sạc và tăng dung lượng sạc so với phương pháp CCCV. Các tác giả của tài liệu \cite{ref58} kết luận rằng việc sử dụng kỹ thuật sạc bốn giai đoạn giúp rút ngắn thời gian sạc, giảm tổn thất dung lượng và kéo dài tuổi thọ chu kỳ của pin LIB. Chiến lược sạc bốn giai đoạn cũng được sử dụng để nghiên cứu tác động của các thông số trọng số lên phương pháp Taguchi \cite{ref30}. Theo các tác giả, kỹ thuật hệ số trọng số bằng nhau đã làm tăng hiệu suất sạc và giảm thời gian sạc. Phương pháp sạc năm giai đoạn làm tăng hiệu suất sạc thêm 2,8\% và giảm độ tăng nhiệt 9,3°C so với phương pháp CCCV \cite{ref76}. Sử dụng phương pháp sạc năm giai đoạn, các tác giả của tài liệu \cite{ref52} kết luận rằng chiến lược sạc đa cấp vừa giảm thời gian sạc vừa tăng tuổi thọ chu kỳ và hiệu suất sạc. Các tác giả của tài liệu \cite{ref80} sử dụng kỹ thuật sạc tám giai đoạn và xác định rằng sạc đa cấp giúp giảm thiểu độ tăng nhiệt và thời gian sạc. Tác giả trong tài liệu \cite{ref51} áp dụng chiến lược sạc mười giai đoạn, và kết quả cho thấy chiến lược sạc đa cấp làm tăng dung lượng sạc ở nhiệt độ thấp hơn nhưng giảm dung lượng sạc so với phương pháp CCCV.
+
+
+
+
+\subsection{Tiêu chí chuyển đổi giữa các giai đoạn sạc}
+Trong phương pháp sạc MSCC, quá trình chuyển tiếp từ giai đoạn này sang giai đoạn khác cũng là một khía cạnh có sự khác biệt đáng kể trong các nghiên cứu. Các tác giả khác nhau đã đề xuất nhiều cách thức chuyển tiếp khác nhau giữa các giai đoạn sạc. Có 4 tiêu chí chuyển giai đoạn sạc sau đây:
+
+
+\subsubsection{Dựa trên thời gian}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Doan_2_Duong/figure/time.png}
+    \caption{Chuyển tiếp giai đoạn dựa trên thời gian}
+    \label{fig:4a}
+\end{figure}
+Thời gian là một thông số để chuyển từ giai đoạn này sang giai đoạn tiếp theo, như minh họa trong Hình~\ref{fig:4a}. Các chuyển tiếp dựa trên thời gian rất dễ thực hiện, nhưng không có phương pháp tiêu chuẩn để xác định thời điểm chuyển đổi giữa các giai đoạn. Chiến lược sạc ba giai đoạn đã được lựa chọn để sạc pin LIB lên tới 80\% SOC trong vòng chưa đầy 40 phút \cite{ref71}. Khoảng thời gian được chọn dựa trên các khoảng SOC. Nhóm thời gian tối ưu được chọn có độ dài 10, 12 và 14 phút cho ba giai đoạn tương ứng với các khoảng SOC 0\%-30\%, 30\%-60\% và 60\%-80\%. Các tốc độ C được chọn ngẫu nhiên và nhiều thí nghiệm đã được tiến hành để xác định mẫu tối ưu (1.8C, 1.5C và 0.9C). Kết quả cho thấy phương pháp sạc MSCC cải thiện tuổi thọ chu kỳ và rút ngắn đáng kể thời gian sạc so với phương pháp CC. Ngoài ra, chiến lược sạc MSCC có hiệu ứng phân cực và hiệu ứng mạ lithium thấp hơn so với phương pháp CC. Tuy nhiên, không có quy trình tiêu chuẩn nào được đề xuất để tìm tốc độ C tối ưu cho mỗi giai đoạn.
+
+
+\subsubsection{Dựa trên trạng thái sạc}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Doan_2_Duong/figure/SoC.png}
+    \caption{Chuyển tiếp giai đoạn dựa trên SoC}
+    \label{fig:4b}
+\end{figure}
+Để chuyển tiếp từ giai đoạn này sang giai đoạn khác, các nghiên cứu khác nhau đã đề xuất số lượng giai đoạn SOC khác nhau. Việc ước lượng chính xác SOC là một nhiệm vụ đầy thách thức. Phương pháp chuyển tiếp dựa trên SOC đã được sử dụng để chuyển từ giai đoạn này sang giai đoạn khác \cite{ref50,ref80,ref83}, như minh họa trong Hình~\ref{fig:4b}. Số lượng giai đoạn cụ thể được sử dụng trong các bài báo khác nhau được tổng hợp trong Bảng \ref{tab:soc_charging_stages}. Số lượng giai đoạn được chọn ngẫu nhiên và áp dụng cho pin LIB để xác định thời gian sạc, hiệu suất sạc, dung lượng nạp/xả và độ tăng nhiệt trong quá trình sạc. Kết quả cho thấy chiến lược MSCC đề xuất với chuyển tiếp dựa trên SOC có thể giảm thời gian sạc \cite{ref50,ref80,ref83}, cải thiện hiệu suất sạc \cite{ref82}, nâng cao dung lượng nạp/xả \cite{ref50}, giảm độ tăng nhiệt \cite{ref82} và kéo dài tuổi thọ pin LIB \cite{ref83} so với phương pháp tiêu chuẩn (CCCV). Trong tài liệu \cite{ref50}, các tác giả đã thực hiện các thí nghiệm trên các khoảng SOC khác nhau. Khoảng SOC ở giai đoạn đầu càng cao thì thời gian sạc càng giảm nhưng độ tăng nhiệt càng cao. Hơn nữa, các tác giả của tài liệu \cite{ref74} kết luận rằng phương pháp sạc MSCC bốn giai đoạn dựa trên SOC giúp giảm thời gian sạc (khoảng 15.3\%), giảm nhẹ hiệu suất sạc (0.4\%) và giảm nhẹ độ tăng nhiệt so với phương pháp CCCV tương đương. Ngoài ra, các tác giả đã sử dụng phân tích hậu kiểm để nghiên cứu tác động của MSCC đến hiện tượng bong tróc graphit và hư hỏng kết tinh \cite{ref83}. Kết quả cho thấy MSCC làm giảm sự phát triển lớp SEI ở cực âm, giảm điện trở nội và kéo dài tuổi thọ pin LIB.
+
+Việc ước lượng SOC là một thách thức do sự biến đổi đáng kể của các thông số pin (điện áp, dòng điện và nhiệt độ vận hành trong suốt vòng đời do lão hóa và hành vi phi tuyến). Ngoài ra, chuyển tiếp giai đoạn dựa trên SOC tốn kém do chi phí tính toán và gánh nặng \cite{ref84}, đồng thời khó triển khai do các thông số vận hành pin LIB đa dạng. Có nhiều phương pháp trong tài liệu để tính toán SOC; tuy nhiên, mỗi chiến lược đều có những ưu điểm và nhược điểm nhất định \cite{ref85}. Do đó, việc áp dụng chuyển tiếp dựa trên SOC trong ứng dụng thực tế có thể gặp khó khăn do cần dựa vào một thông số không thể đo lường chính xác và cần được ước lượng.
+
+
+
+\begin{table}[ht]
+\centering
+\caption{Số lượng giai đoạn sạc khác nhau được đề xuất cho các chuyển đổi sạc bởi các tác giả khác nhau.}
+\label{tab:soc_charging_stages}
+\begin{tabularx}{\textwidth}{|c|c|X|X|X|X|X|X|X|X|}
+\hline
+\textbf{Tài liệu} & \textbf{Loại pin} & \multicolumn{8}{c|}{{\textbf{Sạc đa giai đoạn dựa trên SOC (SOC theo \%)}}} \\
+\cline{3-10}
+ & & \textbf{S1} & \textbf{S2} & \textbf{S3} & \textbf{S4} & \textbf{S5} & \textbf{S6} & \textbf{S7} & \textbf{S8} \\
+\hline
+\cite{ref50} & NCM & 0\%--70\% & 70\%--80\% & 80\%--100\% & & & & & \\
+\hline
+\cite{ref74} & Lithium-ion & 0\%--25\% & 25\%--50\% & 50\%--75\% & 75\%--100\% & & & & \\
+\hline
+\cite{ref83} & NMC & 0\%--20\% & 20\%--40\% & 20\%--60\% & 60\%--80\% & 80\%--100\% & & & \\
+\hline
+\cite{ref80} & LiFePO\textsubscript{4} & 10\%--20\% & 20\%--30\% & 30\%--40\% & 40\%--50\% & 50\%--60\% & 60\%--70\% & 70\%--80\% & 80\%--90\% \\
+\hline
+\end{tabularx}
+\end{table}
+
+\newpage
+\subsubsection{Dựa trên điện áp ngưỡng}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Doan_2_Duong/figure/Vthred.png}
+    \caption{Chuyển tiếp giai đoạn dựa trên ngưỡng điện áp}
+    \label{fig:4c}
+\end{figure}
+
+Chuyển tiếp dựa trên ngưỡng điện áp là một tiêu chí khác để thiết kế chuyển đổi giữa các giai đoạn sạc liên tiếp. Trong trường hợp này, các ngưỡng điện áp khác nhau được chọn để thay đổi giai đoạn và giá trị dòng sạc, như minh họa trong Hình~\ref{fig:4c}. Các tác giả đã sử dụng phương pháp chuyển giai đoạn dựa trên ngưỡng điện áp \cite{ref20,ref21,ref29}. Các ngưỡng điện áp dao động từ 3.6V đến 4.2V do các tác giả chọn sử dụng gia tăng điện áp giảm dần giữa các giai đoạn. Kết quả cho thấy việc sử dụng kỹ thuật năm và mười giai đoạn dựa trên ngưỡng điện áp giúp giảm thời gian sạc trong khi không ảnh hưởng đến tuổi thọ \cite{ref21,ref29}. Tương tự, các tác giả đã áp dụng chiến lược sạc MSCC bốn và năm giai đoạn để kiểm tra ảnh hưởng lên hiện tượng mạ lithium \cite{ref20}. Kết quả chỉ ra rằng các chiến lược sạc với tốc độ C cao có hiện tượng mạ lithium nhiều hơn so với các chiến lược sạc tốc độ C thấp. Các tác giả đã chọn ngẫu nhiên các giá trị ngưỡng điện áp mà không có phương pháp cụ thể nào để xác định điện áp ngưỡng ở mỗi giai đoạn. Tuy nhiên, kỹ thuật chuyển giai đoạn dựa trên ngưỡng dễ triển khai hơn so với tiêu chí chuyển tiếp dựa trên SOC.
+
+
+\subsubsection{Dựa trên điện áp ngắt}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Doan_2_Duong/figure/Vcutoff.png}
+    \caption{Chiến lược chuyển tiếp dựa trên điện áp ngắt}
+    \label{fig:4d}
+\end{figure}
+Tiêu chí dựa trên điện áp ngắt là tiêu chí được sử dụng phổ biến nhất trong các tài liệu để chuyển tiếp từ giai đoạn này sang giai đoạn khác. Minh họa của chiến lược này được thể hiện trong Hình~\ref{fig:4d}. Nhà sản xuất xác định trước giá trị điện áp ngắt, thường là 4.2V đối với pin LIB dựa trên coban. Trong phương pháp này, khi đạt đến điện áp ngắt trong quá trình sạc, dòng điện sẽ được giảm (chuyển giai đoạn) và quá trình sạc tiếp tục cho đến khi đạt lại điện áp ngắt. Quy trình này được lặp lại cho đến khi đạt được số giai đoạn xác định trước. Do đó, nó đơn giản và dễ triển khai.
+
+Trong các tài liệu, nhiều tác giả đã triển khai các giai đoạn khác nhau như bốn giai đoạn \cite{ref30,ref58,ref73}, năm giai đoạn \cite{ref51,ref52} và mười giai đoạn \cite{ref60} để kiểm tra tuổi thọ và hiệu suất của pin LIB. Kết quả cho thấy chiến lược sạc MSCC có thể cải thiện hiệu suất sạc \cite{ref30,ref51,ref52,ref76}, giảm thời gian sạc \cite{ref30,ref52,ref58,ref60,ref73,ref76}, tăng dung lượng nạp/xả \cite{ref51,ref58,ref60}, giảm độ tăng nhiệt \cite{ref89} và kéo dài tuổi thọ \cite{ref58,ref89} của pin LIB so với phương pháp CCCV tương đương. Tuy nhiên, việc sạc pin vượt quá điện áp ngắt của nhà sản xuất có ảnh hưởng tiêu cực đến tuổi thọ pin \cite{ref51,ref72}. Ngoài ra, tiêu chí dựa trên điện áp ngắt đơn giản và dễ triển khai hơn so với các tiêu chí khác.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+%% --------------------------------------------------%%
+%------------CHAPTER 3---------------------------%
+%%-----------------------------------------------------%
+\section*{CHƯƠNG 3. TỐI ƯU BỘ DÒNG SẠC MSCC}
+    \addcontentsline{toc}{section}{\numberline{}CHƯƠNG 3. TỐI ƯU BỘ DÒNG SẠC MSCC}
+    
+\setcounter{section}{3}
+    \setcounter{subsection}{0}
+        \setcounter{figure}{0}
+            \setcounter{table}{0}
+%%-------------------------------------------------------%%
+% --------------------------------------------------------%
+%---------------------------------------------------------%
+
+ Thông qua cơ sở lý thuyết ở Chương 2, ta rút ra được tổng quan về phương pháp sạc MSCC. Chương 3 sẽ đi sâu vào thiết kế và tối ưu dòng điện sạc của phương pháp MSCC, ứng dụng vào sạc pin Lithium-ion.
+ 
+ 
+\subsection{Lựa chọn số giai đoạn và điện áp ngắt}
+Trong phương pháp sạc nhiều giai đoạn dòng không đổi (MSCC), hai thông số quan trọng cần được xác định là \textbf{số giai đoạn sạc} và \textbf{điện áp ngắt}. Việc lựa chọn hợp lý hai thông số này ảnh hưởng trực tiếp đến thời gian sạc, hiệu suất năng lượng và tuổi thọ pin. Do đó, cần phân tích riêng từng yếu tố, sau đó kết hợp để đưa ra phương án tối ưu.
+
+\subsubsection{Số giai đoạn sạc}
+
+Sử dụng mô hình pin R-C đơn giản và phép thử đạo hàm bậc nhất để tối thiểu hóa thời gian sạc. Hệ số C-rate tối ưu được xác định bằng số học sử dụng phương trình \eqref{eq:optimal_current}, ta có thể chứng minh được: \textit{Khi số giai đoạn sạc của MSCC tiến tới rất lớn, thì MSCC tiến tới CCCV} \ref{MSCC->CCCV}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Doan_2_Duong/figure/sosanhMSCCCCV.png}
+    \caption{Tính toán thời gian sạc MSCC và CCCV}
+    \label{fig:sosanhthoigian sạc}
+\end{figure}
+
+Hình \ref{fig:sosanhthoigian sạc} thể hiện khi số giai đoạn sạc tiến tới càng lớn thì thời gian sạc của MSCC càng tiến tới thời gian sạc của CCCV, tức là MSCC tương đương với CCCV. Do đó, ta có thể đưa ra kết luận: \textit{MSCC chính là một biến thể của CCCV.}
+Các nghiên cứu cho thấy nhiều kết quả đa dạng có thể được sử dụng để đánh giá ảnh hưởng của số lượng giai đoạn sạc khác nhau đến tuổi thọ và hiệu suất của pin LIB. Số lượng giai đoạn tối ưu và các đặc tính hiệu suất của pin LIB đã được nghiên cứu \cite{81}. Khi số lượng giai đoạn sạc tăng từ một lên năm, hiệu suất sạc và thời gian sạc được cải thiện đáng kể. Tuy nhiên, khi số lượng giai đoạn vượt quá năm, các cải thiện chỉ mang tính chất nhỏ \cite{9,51,52}. Do đó, không nên sử dụng nhiều hơn năm giai đoạn vì điều này sẽ làm tăng độ phức tạp của mạch điều khiển bộ sạc mà không cải thiện đáng kể hiệu suất và tuổi thọ của pin LIB.
+Dựa trên các kết quả nghiên cứu trong tài liệu, chiến lược sạc năm giai đoạn được coi là phù hợp nhất so với các chiến lược khác về các thông số hiệu suất và tuổi thọ.
+
+
+\subsubsection{Điện áp ngắt sạc}
+
+Đồ án chọn điện áp ngắt làm tiêu chí chuyển đổi giai đoạn sạc cho phương pháp MSCC. Như đề cập ở trên, các tác giả thường lấy mức điện áp ngắt là 4.2V (điện áp ghi trên nhãn của pin). Tuy nhiên, nhiều tác giả khác cũng đã khảo sát nhiều mức điện áp ngắt khác nhau, thường nằm trong khoảng 4.2V đến 4.3V, kết quả cho thấy thời gian sạc pin được cải thiện đáng kể. 
+Đối với các mức điện áp ngắt, có các yếu tố ảnh hưởng tới pin cần được xem xét khi thiết kế: 
+\begin{itemize}
+    \item Nhiệt độ pin
+    \item Dung lượng pin
+    \item Nội trở pin
+    \item Hiệu suất pin
+    \item Tuổi thọ pin
+\end{itemize}
+Thông qua \ref{}, hình \ref{dien ap ngat} đưa ra biểu đồ radar so sánh các mức điện áp ngắt dựa theo năm tiêu chí và đánh giá tổng quan về từng
+ mức điện áp ngắt được đưa ra:
+
+
+
+
+\newpage
+
+\begin{figure}[ht] 
+\centering
+\includegraphics[width=1.0\textwidth]{Doan_2_Duong/figure/dien ap ngat.png}
+\caption{ Biểu đồ radar khảo sát ảnh hưởng của điện áp cắt }
+\label{dien ap ngat}
+\end{figure}
+
+
+Các nghiên cứu khác nhau đã chỉ ra rằng điện áp ngắt có ảnh hưởng đa chiều đến hiệu năng pin lithium-ion. Khi điện áp ngắt tăng từ 3.45V lên 3.65V, nhiệt độ pin tăng đáng kể dù thời gian sạc được rút ngắn. Về dung lượng, pin sạc ở 4.3V cho thấy sai số lớn trong dự đoán suy giảm so với 4.1V-4.2V, đồng thời tốc độ suy giảm dung lượng tăng gấp 2-3 lần. Nội trở pin cũng tăng nhanh ở 4.3V, trong khi mức 4.1V-4.2V duy trì ổn định hơn. Tuổi thọ pin bị ảnh hưởng rõ rệt khi sau 1000 chu kỳ, pin sạc ở 4.3V chỉ còn 50\% dung lượng so với 85\% ở 4.1V-4.2V sau 2000 chu kỳ. Hiệu suất sạc/xả giảm mạnh (>2\%) khi vượt ngưỡng 4.2V do độ nhạy vật liệu cathode. Kết quả mô phỏng cho thấy MSCC với điện áp ngắt 4.25V giảm 6.63\% thời gian sạc so với CCCV nhưng vẫn đảm bảo dung lượng 5.51Ah. 
+Biểu đồ radar tổng hợp các tiêu chí đánh giá cho thấy khi điện áp ngắt vượt quá ngưỡng 4.2V, mức độ ảnh hưởng tiêu cực đến pin tăng mạnh trên tất cả các phương diện: nhiệt độ, suy giảm hiệu suất, tuổi thọ và nội trở. Do đó, việc lựa chọn điện áp ngắt tối ưu cần cân nhắc giữa thời gian sạc và các yếu tố ảnh hưởng đến tuổi thọ pin.
+
+Trong đồ án này, điện áp 4.25 V được chọn để khảo sát. Đây là mức cao nhất trong giới hạn an toàn thí nghiệm, cho phép đánh giá tác động cực trị của điện áp cao đến thời gian và hiệu suất sạc. Kết quả phân tích sẽ chỉ ra mức điện áp này có mang lại lợi ích đáng kể so với ngưỡng 4.2\,V hay không, từ đó làm cơ sở đề xuất tối ưu trong phần sau.
+Sử dụng mô hình pin R-C đơn giản và cách xác định hệ số C-rate như trên, tiến hành mô phỏng với pin Lithium-ion với các mức điện áp ngắt khác nhau, ta thu được Bảng \ref{tab:charging_efficiency} so sánh hiệu quả sạc
+\newpage
+\begin{table}[h]
+\centering
+\caption{Bảng so sánh hiệu quả sạc}
+\renewcommand{\arraystretch}{1.3} % giãn dòng
+\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}X 
+                                |>{\centering\arraybackslash}X 
+                                |>{\centering\arraybackslash}X 
+                                |>{\centering\arraybackslash}X 
+                                |>{\centering\arraybackslash}X|}
+\hline
+\textbf{Phương pháp} & \textbf{Điện áp ngắt (V)} & \textbf{Dung lượng sạc (mAh)} & \textbf{Thời gian sạc (s)} & \textbf{Hiệu quả (\%)} \\
+\hline
+CCCV & 4.2 & 1915.08 & 4045.11 & \textbf{--} \\
+\hline
+\multirow{6}{*}{MSCC} 
+ & 4.20 & 1915.08 & 3920.92 & \textbf{3.07} \\
+ & 4.21 & 1915.08 & 3888.56 & \textbf{3.87} \\
+ & 4.22 & 1915.08 & 3858.63 & \textbf{4.61} \\
+ & 4.23 & 1915.08 & 3829.91 & \textbf{5.32} \\
+ & 4.24 & 1915.08 & 3802.80 & \textbf{5.99} \\
+ & 4.25 & 1915.08 & 3776.91 & \textbf{6.63} \\
+\hline
+\end{tabularx}
+\label{tab:charging_efficiency}
+\end{table}
+
+Có thể thấy, với cùng mức dung lượng sạc như nhau (dung lượng sạc CCCV làm tiêu chuẩn), mức điện áp ngắt tăng lên càng cao thì thời gian sạc càng được cải thiện. Tuy nhiên việc nâng mức điện áp đồng nghĩa với phải đánh đổi các yếu tố về nhiệt độ, hiệu suất, dung lượng, tuổi thọ. Nên trong đồ án sẽ sử dụng mức điện áp ngắt 4.25V và khảo sát với các mức điện áp ngắt khác nhau để xem xét ảnh hưởng thực tế lên pin.
+
+\subsection{Mô hình hoá pin Lithium-Ion}
+
+Mô hình hóa pin là một yếu tố quan trọng trong việc phân tích và dự đoán hiệu suất của hệ thống lưu trữ năng lượng. Các mô hình pin Li-ion đã được nghiên cứu rộng rãi nhằm mô tả mối quan hệ toán học giữa các yếu tố ảnh hưởng và đặc tính hoạt động của pin, bao gồm điện áp, dòng điện, công suất, trạng thái sạc (SOC), nhiệt độ, điện trở trong, chu kỳ hoạt động và hiện tượng tự phóng điện. Điều này đặc biệt quan trọng trong các ứng dụng như xe điện hoặc hệ thống lưu trữ năng lượng tái tạo, nơi yêu cầu tối ưu hóa hiệu suất và kéo dài tuổi thọ của hệ thống. Các nhà nghiên cứu đã
+ phát triển đa dạng mô hình pin, bao gồm mô hình cơ chế điện hóa, mô hình mạch
+ tương đương và mô hình hướng dữ liệu, nhằm mô phỏng toàn diện hoạt động của pin,
+ mở đường cho những cải tiến vượt bậc trong công nghệ sạc pin. Trong đó được ứng dụng phổ biến nhất là mô hình điện hoá và mô hình mạch tương đương.\cite{millner2010modeling}
+\subsubsection{Mô hình điện hoá}
+Mô hình điện hóa của pin Lithium-Ion được xây dựng dựa trên các phương trình vật lý mô tả động lực học ion lithium trong pin. Mô hình điện hoá cho phép mô phỏng chính xác các quá trình hóa học bên trong pin để tối ưu hóa hiệu suất và kéo dài tuổi thọ. Khi sạc, các ion lithium di chuyển từ cực dương (cathode) qua chất điện phân đến cực âm (anode), nơi chúng được lưu trữ trong cấu trúc vật liệu graphit. Khi xả, quá trình này diễn ra ngược lại, các ion lithium di chuyển từ anode về cathode, tạo ra dòng điện cung cấp năng lượng cho thiết bị. Các phương trình mô tả bao gồm phương trình khuếch tán ion trong chất điện phân để mô tả sự vận chuyển của ion lithium, phương trình Nernst-Planck mô tả dòng ion trong điện cực, và phương trình điện thế xác định sự thay đổi điện thế tại các điểm khác nhau trong pin. Một yếu tố quan trọng trong mô hình điện hóa là kiểm soát nhiệt độ, vì nhiệt độ quá cao có thể dẫn đến các phản ứng phụ làm giảm tuổi thọ pin hoặc gây nguy cơ cháy nổ. Do đó, mô hình sử dụng thuật toán tối ưu để điều chỉnh dòng sạc nhằm duy trì nhiệt độ trong giới hạn an toàn. Mô hình điện hóa được ứng dụng trong hệ thống quản lý pin (BMS) để tối ưu hóa quá trình sạc và xả, hỗ trợ nghiên cứu cải tiến vật liệu điện cực nhằm nâng cao hiệu suất của pin, đồng thời được tích hợp vào các thuật toán sạc nhanh để giảm thời gian sạc mà không làm giảm tuổi thọ pin. Các nhà khoa học đã phát triển nhiều mô hình điện hoá như: Mô hình đầy đủ dựa trên phương trình điện hóa (Full-Order Electrochemical Models), Mô hình hạt đơn (Single-Particle Model - SPM), Mô hình hạt đơn mở rộng (Extended Single-Particle Model - eSPM), Mô hình vi mô và vĩ mô (Micro-Macro Models), Mô hình suy thoái (Degradation Models). Hình \ref{1D} là ví dụ về một phương pháp mô hình điện hoá 1D. \cite{pramanik2016electrochemical}\cite{rahman2016electrochemical}
+
+\begin{figure}[h] 
+\centering
+\includegraphics[width=0.6\textwidth]{Doan_2_Duong/figure/1D.png}
+\caption{ Sơ đồ của Mô hình điện hóa 1D }
+\label{1D}
+\end{figure}
+
+\subsubsection{Mô hình mạch tương đương}
+Mô hình điện hoá trên có ưu điểm mô tả chính xác các đặc tính của pin, tuy nhiên tương đối phức tạp và không phù hợp với mô tả hệ thống thử nghiệm pin. Trong loại mô hình pin, mô hình hiệu suất, đặc biệt là mô hình mạch tương đương, được sử dụng phổ biến nhờ tính đơn giản và đa dạng của nó. Mô hình mạch tương đương mô phỏng đặc tính động của pin bằng cách sử dụng các phần tử điện như điện trở, tụ điện và nguồn điện áp. Nó được ứng dụng rộng rãi trong nghiên cứu về xe điện và hệ thống lưu trữ năng lượng, hỗ trợ ước tính SOC và quản lý pin.
+Dưới đây là một số loại mô hình mạch tương đương phổ biến được sử dụng rộng rãi trong các nghiên cứu về xe điện \cite{mohinhpin,mohinhpin2}: Mô hình \textit{Rint},  mô hình \textit{Thevenin}, mô hình \textit{DP (dual polarization)}
+
+\paragraph{Mô hình Rint}\mbox{}
+
+Mô hình Rint là mô hình đơn giản nhất, như minh họa trong Hình \ref{rint1} và Phương trình \ref{eq:terminal_voltage}, sử dụng một nguồn điện áp lý tưởng \(U_{oc}\) để biểu diễn điện áp hở mạch của pin. Cả điện trở \(R_o\) và điện áp hở mạch \(U_{oc}\) đều là các hàm phụ thuộc vào trạng thái nạp (SoC), trạng thái sức khỏe (SoH) và nhiệt độ. \(I_L\) là dòng tải, mang giá trị dương khi phóng điện và giá trị âm khi nạp điện, trong khi \(U_L\) là điện áp đầu cực. Mặc dù dễ triển khai, mô hình này không mô tả được các hiệu ứng động như đáp ứng tần số hay phân cực.
+\begin{figure}[h] 
+\centering
+\includegraphics[width=0.5\textwidth]{Doan_2_Duong/figure/rint.png}
+\caption{ Mô hình Rint }
+\label{rint1}
+\end{figure}
+\begin{equation}
+U_{\mathrm{L}} = U_{\mathrm{oc}} - I_{\mathrm{L}} R_{\mathrm{o}}
+\label{eq:terminal_voltage}
+\end{equation}
+
+\paragraph{Mô hình Thevenin}\mbox{}
+
+Mô hình Thevenin kết nối một mạng RC song song nối tiếp dựa trên mô hình Rint, mô tả quá trình phân cực của pin. Như thể hiện trong Hình \ref{thevenin}, mô hình chủ yếu bao gồm ba thành phần: điện áp hở mạch \(U_{oc}\), các điện trở nội và các điện dung tương đương. Các điện trở nội bao gồm điện trở ohmic \(R_o\) và điện trở phân cực \(R_{Th}\). Điện dung tương đương \(C_{Th}\) được sử dụng để mô tả đáp ứng quá độ trong quá trình nạp và phóng điện. \(U_{Th}\) là điện áp trên \(C_{Th}\), \(I_{Th}\) là dòng điện ra từ \(C_{Th}\). Hành vi điện của mô hình Thevenin có thể được biểu diễn bằng Phương trình \ref{eq:thevenin_model}.
+
+\begin{figure}[h] 
+\centering
+\includegraphics[width=0.5\textwidth]{Doan_2_Duong/figure/thevenin.png}
+\caption{ Mô hình Thevenin }
+\label{thevenin}
+\end{figure}
+\begin{equation}
+\begin{cases} 
+\dot{U}_{\mathrm{Th}} = -\dfrac{U_{\mathrm{Th}}}{R_{\mathrm{Th}}C_{\mathrm{Th}}} + \dfrac{I_L}{C_{\mathrm{Th}}}\\ 
+U_L = U_{\mathrm{oc}} - U_{\mathrm{Th}} - I_L R_0
+\end{cases}
+\label{eq:thevenin_model}
+\end{equation}
+
+\newpage
+\paragraph{Mô hình DP(dual polarization)}\mbox{}
+
+Dựa trên phân tích thử nghiệm đặc tính của pin lithium-ion, có thể quan sát thấy hiện tượng phân cực rõ rệt. Đặc tính phân cực này có thể được mô phỏng ở một mức độ nào đó bằng mô hình Thevenin, tuy nhiên sự khác biệt giữa phân cực nồng độ và phân cực điện hóa dẫn đến mô phỏng không chính xác ở những thời điểm cuối quá trình nạp hoặc phóng điện. Một mô hình mạch cải tiến được trình bày trong Hình 5, được gọi là mô hình phân cực kép (DP - Dual Polarization), nhằm nâng cao mô tả đặc tính phân cực và mô phỏng riêng biệt hiện tượng phân cực nồng độ và phân cực điện hóa.
+\begin{figure}[h] 
+\centering
+\includegraphics[width=0.5\textwidth]{Doan_2_Duong/figure/DP.png}
+\caption{ Mô hình DP }
+\label{dp}
+\end{figure}
+
+Mô hình DP bao gồm ba thành phần chính: (1) Điện áp hở mạch $U_{oc}$; (2) Các điện trở nội bao gồm điện trở ohmic $R_o$ và các điện trở phân cực, trong đó $R_{pa}$ đại diện cho điện trở hiệu dụng đặc trưng cho phân cực điện hóa và $R_{pc}$ đại diện cho điện trở hiệu dụng đặc trưng cho phân cực nồng độ; (3) Các điện dung hiệu dụng như $C_{pa}$ và $C_{pc}$, được sử dụng để đặc trưng cho đáp ứng quá độ trong quá trình truyền công suất đến/từ pin và để mô tả riêng biệt hiện tượng phân cực điện hóa và phân cực nồng độ. $U_{pa}$ và $U_{pc}$ lần lượt là điện áp trên $C_{pa}$ và $C_{pc}$. $I_{pa}$ và $I_{pc}$ lần lượt là dòng điện xả từ $C_{pa}$ và $C_{pc}$. Đặc tính điện của mạch có thể được biểu diễn bằng Phương trình \ref{eq:DP_model}:
+
+\begin{equation}
+\begin{cases}
+\dot{U}_{pa} = -\dfrac{U_{pa}}{R_{pa}C_{pa}} + \dfrac{I_L}{C_{pa}} \\
+\dot{U}_{pc} = -\dfrac{U_{pc}}{R_{pc}C_{pc}} + \dfrac{I_L}{C_{pc}} \\
+U_L = U_{oc} - U_{pa} - U_{pc} - I_L R_o
+\end{cases}
+\label{eq:DP_model}
+\end{equation}
+
+Nhìn chung, việc lựa chọn mô hình phù hợp phụ thuộc vào sự cân bằng giữa độ chính xác và độ phức tạp trong ứng dụng thực tế.\cite{bialon2023hppc}
+
+\subsection{Bài thí nghiệm HPPC}
+\subsubsection{Cơ sở lý thuyết bài thí nghiệm HPPC}
+
+Trong nhiều bài nghiên cứu về pin, mô hình pin và các ứng dụng thời gian thực, các phương pháp thường dùng bao gồm: sử dụng phổ trở kháng điện hóa (Electrochemical Impedance Spectroscopy - EIS) và bài thí nghiệm đặc tính theo xung lai (Hybrid Pulse Power Characterization - HPPC). EIS là một phương pháp ưu tiên việc sử dụng công cụ, máy móc; các công cụ vẫn có giá thành đáng kể \cite{Ahmed2014}. Phương pháp này phù hợp với ECM nhờ khả năng áp dụng các phương pháp giải tích (ví dụ: khớp hàm mũ) hoặc tối ưu hóa (GA, PSO) để nhận dạng tham số, đảm bảo cân bằng giữa độ chính xác và độ phức tạp tính toán \cite{Nemes2019}. Hơn nữa, HPPC mô phỏng các điều kiện làm việc thực tế của pin (như xe điện), giúp hiệu chỉnh mô hình theo SOC, nhiệt độ, và dòng tải \cite{Huang2019}. Một phương án hợp lý, phù hợp hơn với quy mô phòng thí nghiệm và phạm vi, nội dung của đồ án là phương pháp sử dụng bài thí nghiệm HPPC. Đây là phương pháp áp dụng các xung sạc/xả với thời gian ngắn (được gọi là chu trình HPPC) để quan sát đặc tính động của pin.
+
+Xét tại 1 chu trình HPPC, tức tại 1 giá trị SoC khởi điểm, dạng đồ thị dòng điện, điện áp cho các xung sạc/xả/nghỉ thời gian ngắn được cho trong Hình \ref{fig:hppc_graph}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Doan_2_Duong/figure/hppc0.png}
+    \caption{Đồ thị dòng điện, điện áp trong 1 chu trình HPPC}
+    \label{fig:hppc_graph}
+\end{figure}
+    Dựa vào đồ thị này, các phương pháp xác định thông số của từng mô hình mạch điện tương đương sẽ được trình bày ở mục sau. Do phạm vi đồ án, các mô hình được phục vụ cho quá trình sạc CC-CV nên mô hình sạc của pin sẽ được xác định dựa vào đoạn đồ thị từ thời điểm $t_E$ đến $t_I$, trong phạm vi rộng hơn. Mô hình xả của pin cũng được xác định bằng phương pháp tương tự. Để đơn giản hóa các tính toán, biểu diễn, thời điểm ban đầu $t_E = t_F$ sẽ được tạm dịch về 0.
+\subsubsection{Quy trình thí nghiệm HPPC}
+Hình \ref{fig:hppc} mô tả sơ lược quy trình thực hiện bài thí nghiệm HPPC, các bước lần lượt như sau:
+
+\begin{enumerate}
+    \item Sạc CC-CV đầy pin, tùy thuộc mức dòng sạc, giá trị SoC khởi điểm và khuyến nghị của NSX.
+    \item Sau khi sạc đầy pin thì ngắt sạc, cho pin nghỉ với thời gian đủ lâu. Mục tiêu của việc cho nghỉ sau sạc là để điện áp trên 2 đầu pin trở về xấp xỉ điện áp hở mạch của pin (điện áp hở mạch có liên hệ với SoC). Thời gian nghỉ này có thể kéo dài đến 1 giờ (tùy thuộc khuyến nghị của NSX).
+    \item Tiến hành đo giá trị điện áp 2 đầu pin sau thời điểm nghỉ, giá trị này tương đương với điện áp hở mạch của pin khi SoC đạt 100\%.
+    \item Bắt đầu thực hiện 1 chu trình HPPC, bước đầu tiên là xả pin với 1 mức dòng trong thời gian ngắn. Mức dòng và khoảng thời gian ngắn này được lựa chọn để đảm bảo SoC của pin không bị suy giảm đáng kể (tức $U_{oc}$ coi như không đổi). Trong các nghiên cứu và hướng dẫn về HPPC \cite{nemes2019parameters}, mức dòng xả được chọn là 1C và thời gian xả là 30 giây.
+    \item Sau khi thực hiện xả, tiến hành cho pin nghỉ trong khoảng thời gian ngắn (khoảng vài chục giây). Trong các nghiên cứu và hướng dẫn về HPPC \cite{HPPC}, thời gian nghỉ thường được chọn trong khoảng 40 giây.
+    \item Tiến hành sạc pin với mức dòng tương đương khi xả ở bước 1, trong khoảng thời gian tương đương. Sau đó, pin cũng được cho nghỉ trong khoảng thời gian tương tự bước 2.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Doan_2_Duong/figure/image11.png}
+    \caption{Quy trình bài thí nghiệm HPPC}
+    \label{fig:hppc}
+\end{figure}
+
+
+\subsubsection{Phương pháp xác định các tham số mô hình Thevenin}
+\paragraph{Xác định nguồn áp \( U_{oc} \) và nội trở \( R_0 \):}\mbox{}
+
+
+Tại thời điểm ban đầu $t_E$, pin đã được nghỉ đủ lâu để hiện tượng phân cực kết thúc. Nguồn áp $U_{oc}$ được xác định bằng cách đo điện áp tại $E$. Khi đó:
+\begin{equation}
+U_{oc} = V_E 
+\end{equation}
+Khi pin bắt đầu giai đoạn sạc, điện áp 2 đầu tại $E$ và $F$ thay đổi lập tức 1 lượng do nội trở $R_0$. Tương tự, khi pin kết thúc giai đoạn xả, điện áp 2 đầu tại $G$ và $H$ thay đổi lập tức 1 lượng do nội trở $R_0$. Ta có:
+
+\begin{equation}
+V_F - V_E = V_G - V_H = I \cdot R_0 
+\end{equation}
+
+Như vậy, nội trở $R_0$ có thể được tính theo công thức sau:
+
+\begin{equation}
+R_0 = \frac{(V_F - V_E) + (V_G - V_H)}{2I} 
+\end{equation}
+
+Phép lấy trung bình 2 biểu thức là để tăng tính chính xác và bù các sai lệch do quá trình sạc pin gây ra với điện áp 2 đầu cực.
+
+\paragraph{Xác định điện trở và tụ điện phân cực $R_p, C_p$:}\mbox{}
+
+
+Đối với hai giá trị điện trở và tụ điện phân cực, cần kết hợp giải quyết dựa trên hai giai đoạn: khi sạc pin từ \( F \) đến \( G \) và khi cho pin nghỉ từ \( H \) đến \( I \). Theo định luật Kirchhoff và các định luật cơ bản trong mạch điện, ta có:
+
+\begin{itemize}
+    \item Khi pin sạc trong khoảng thời gian từ $F$ đến $G$:
+\end{itemize}
+\begin{equation}
+\left\{
+\begin{aligned}
+i &= i_{Rp} + i_{Cp} \\
+u_p &= i_{Rp} \cdot R_p \\
+i_{Cp} &= C_p \cdot \frac{du_p}{dt} \\
+u_t &= u_{oc} + i \cdot R_0 + u_p
+\end{aligned}
+\right.
+\end{equation}
+
+Trong đó: \( u_{oc} \), \( u_p \), \( u_t \), \( i \), \( i_{Rp} \), \( i_{Cp} \) lần lượt là điện áp hở mạch tức thời, điện áp phân cực, điện áp hai đầu pin, dòng điện qua pin, dòng điện qua \( R_p \) và dòng điện qua \( C_p \).
+
+Từ ba phương trình đầu, ta có phương trình vi phân:
+
+\begin{equation}
+\frac{du_p(t)}{dt} + \frac{u_p(t)}{C_p R_p} = \frac{i}{C_p}
+\end{equation}
+
+Giải phương trình vi phân thuần nhất này, ta được:
+
+\begin{equation}
+u_p(t) = i \cdot R_p + \left( u_p(0) - i \cdot R_p \right) \cdot e^{-\frac{t}{R_p\, C_p}}
+\end{equation}
+
+Xét điều kiện đầu tại \( t = 0 \), \( u_p(0) = 0 \), nên tại thời điểm \( G \):
+
+\begin{equation}
+u_p(t_G) = i \cdot R_p \left( 1 - e^{-\frac{t_G}{R_p\, C_p}} \right)
+\end{equation}
+
+Suy ra điện trở phân cực:
+
+\begin{equation}
+R_p = \frac{u_p(t_G)}{i \left( 1 - e^{-\frac{t_G}{R_p\, C_p}} \right)}
+\end{equation}
+
+Với \( u_p(t_G) = V_G - V_F \), ta có:
+
+\begin{equation}
+R_p = \frac{V_G - V_F}{i \left( 1 - e^{-\frac{t_G}{R_p\, C_p}} \right)}
+\end{equation}
+
+\begin{itemize}
+    \item Khi pin nghỉ trong khoảng thời gian từ \( H \) đến \( I \):
+\end{itemize}
+
+Tụ \( C_p \) xả qua \( R_p \), ta có:
+
+\begin{equation}
+u_p = i \cdot R_p = \frac{q_p}{C_p}
+\end{equation}
+
+Lấy đạo hàm hai vế theo thời gian:
+
+\begin{equation}
+\frac{d(i \cdot R_p)}{dt} = \frac{dq_p}{C_p\, dt} = -\frac{i}{C_p}
+\end{equation}
+
+Suy ra:
+
+\begin{equation}
+\frac{di}{i} = -\frac{dt}{R_p\, C_p}
+\end{equation}
+
+Nhân hai vế với \( R_p \):
+
+\begin{equation}
+\frac{du_p}{u_p} = -\frac{dt}{R_p\, C_p}
+\end{equation}
+
+Lấy tích phân hai vế từ thời điểm \( t_H \) đến \( t_K \) (\( t_H < t_K < t_I \)):
+
+\begin{equation}
+\ln\left( \frac{u_p(t_K)}{u_p(t_H)} \right) = -\frac{t_K - t_H}{R_p\, C_p}
+\end{equation}
+
+Suy ra:
+
+\begin{equation}
+u_p(t_K) = u_p(t_H) \cdot e^{-\frac{t_K - t_H}{R_p\, C_p}}
+\end{equation}
+
+Với \( u_p(t_H) = V_G - V_F \), ta có:
+
+\begin{equation}
+u_p(t_K) = (V_G - V_F) \cdot e^{-\frac{t_K - t_H}{R_p\, C_p}}
+\end{equation}
+
+Áp dụng định luật Kirchhoff: \( u_t = u_{oc} + i R_0 + u_p \). Tại thời điểm \( t_K \), vì \( i = 0 \) nên:
+
+\begin{equation}
+u_t(t_K) = V_E + (V_G - V_F) \cdot e^{-\frac{t_K - t_H}{R_p\, C_p}}
+\end{equation}
+
+Suy ra:
+
+\begin{equation}
+R_p\, C_p = -\frac{t_K - t_H}{\ln \left( \dfrac{V_K - V_E}{V_G - V_F} \right)}
+\end{equation}
+
+Kết hợp với phương trình trước đó, ta giải được hệ phương trình hai ẩn để xác định \( R_p \) và \( C_p \) trong mô hình Thevenin.
+
+\subsection{Tính toán thời gian và dung lượng sạc}
+Sau khi đã xác định được các tham số của mô hình Thevenin, để triển khai trên máy tính và thực hiện bài toán tối ưu sau này. Ta cần thực hiện tính toán thời gian và dung lượng sạc mô phỏng cho quá trình sạc pin.
+Từ phương trình của mô hình Thevenin trên \ref{eq:thevenin_model}:
+\begin{equation*}
+\dfrac{d{U}_{\mathrm{Th}}}{dt} = -\dfrac{U_{\mathrm{Th}}}{R_{\mathrm{Th}}C_{\mathrm{Th}}} + \dfrac{I_L}{C_{\mathrm{Th}}}\\ 
+\label{eq:thevenin_model-eq}
+\end{equation*}
+
+Viết lại dưới dạng rời rạc hoá (theo Forward Euler): 
+\begin{equation*}
+\dfrac{{U}_{\mathrm{Th}}(k+1)-{U}_{\mathrm{Th}}(k)}{\Delta t} = -\dfrac{U_{\mathrm{Th}}(k)}{R_{\mathrm{Th}}C_{\mathrm{Th}}} + \dfrac{I_L(k)}{C_{\mathrm{Th}}} \\ 
+\label{eq:thevenin_model-eq}
+\end{equation*}
+
+Tổng hợp lại ta có mô hình Thevenin dưới dạng rời rạc hoá (với $k = 1, 2, \ldots, 5$): 
+\begin{equation}
+\begin{cases} 
+U_{\text{Th}}(k+1) = U_{\text{Th}}(k)\left( 1 - \dfrac{\Delta t}{R_{\text{Th}}C_{\text{Th}}} \right) + \dfrac{1}{C_{\text{Th}}} I(k) \\ 
+U_L(k) = U_{\text{oc}} + U_{\text{Th}}(k) + I_L(k)R_o
+\end{cases}
+\end{equation}
+
+ Dung lượng sạc cho mỗi bước được tính bằng:  
+\begin{equation}
+       Q(k+1) = Q(k) + i_L(k) \cdot \Delta t 
+\end{equation}
+
+ Trạng thái sạc cho mỗi bước được tính bằng:  
+\begin{equation}
+      \text{SoC}(k) = \frac{Q(k)}{Q_0}  
+\end{equation}
+
+Để tính toán được thời gian và dung lượng sạc dựa vào mô hình Thevenin, ta xây dựng vòng lặp tính toán dựa vào dạng rời rạc hoá với lưu đồ như hình \ref{tinhtoan thoi gian sac}: 
+\begin{figure}[H] 
+\centering
+\includegraphics[width=0.7\textwidth]{Doan_2_Duong/figure/tinh toan thoi tian sạc.png}
+\caption{Lưu đồ tính toán thời gian sạc phương pháp MSCC bằng mô hình Thevenin}
+\label{tinhtoan thoi gian sac}
+\end{figure}
+
+Trong đó, các giá trị $U_{oc}(k), R_o(k),R_{Th}(k),C_{Th}(k)$ là các hàm bậc 7 theo $SoC(k)$ và được cập nhật giá trị ở từng bước tính toán. Với cách tính rời rạc hoá này, tuy không chính xác tuyệt đối, nhưng đơn giản hoá các bước tính và phù hợp với việc lập trình trên máy tính. Tính toán thời gian sạc được triển khai trên MATLAB và được kiểm chứng với mô phỏng pin trên PSIM với một bộ dòng sạc bất kì, ta thu được kết quả so sánh ở hình \ref{so sanh thoi gian sac}
+\newpage
+\newpage
+\begin{figure}[H] 
+\centering
+\includegraphics[width=0.7\textwidth]{Doan_2_Duong/figure/thoigiansac.png}
+\caption{Kiểm chứng tính toán thời gian sạc bằng mô hình Thevenin và mô phỏng}
+\label{so sanh thoi gian sac}
+\end{figure}
+
+
+
+Kết quả cho thấy việc tính toán điện áp và dòng điện sạc bằng mô hình Thevenin trên MATLAB và mô phỏng bằng pin thực nghiệm trên PSIM tương đối chính xác, cho sai số rất nhỏ, cỡ $0.1\%$. Do đó, đồ án sử dụng tính toán thời gian và dung lượng sạc bằng vòng lặp trên MATLAB, là cơ sở để triển khai bài toán tối ưu sẽ được trình bày ở mục sau của đồ án. 
+
+
+
+
+
+\subsection{Các phương pháp tối ưu hoá}
+Như đã trình bày ở trên, việc xác định dòng sạc là một trong những yếu tố quan trọng nhất của phương pháp sạc MSCC. Trong đó, phần nội dung này của đồ án sẽ trình bày góc nhìn tổng quan về các phương pháp tối ưu, từ đó ứng dụng để tìm kiếm bộ dòng sạc tối ưu cho MSCC
+
+\subsubsection{Tổng quan các phương pháp tối ưu}
+
+
+Trước khi bắt đầu xem xét các kỹ thuật tối ưu hóa hiện có, cần trình bày dạng chuẩn của bài toán tối ưu hóa tổng quát mà các kỹ thuật này sẽ giải quyết. Dạng chuẩn cho bài toán tối ưu hóa phi tuyến đơn mục tiêu với ràng buộc được biểu diễn trong Phương trình \ref{Toiuu}.
+\begin{equation}
+\begin{aligned}
+&\text{Tối thiểu: } f(x) \\
+&\text{Ràng buộc: } \\
+&\quad g_j(x) \leq 0 \quad j = 1,m \\
+&\quad h_k(x) = 0 \quad k = 1,p \\
+&\quad x_{iL} \leq x_i \leq x_{iU} \quad i = 1,n
+\end{aligned}
+\label{Toiuu}
+\end{equation}
+Trong đó, $f(x)$ đại diện cho hàm mục tiêu, $g_j(x)$ là ràng buộc bất đẳng thức và $h_k(x)$ là ràng buộc đẳng thức. Vector $x$ biểu thị $n$ biến thiết kế được điều chỉnh để đạt được tối ưu. Không gian thiết kế được xác định bởi các giới hạn trên và dưới $x_{iL}$ và $x_{iU}$ của các biến thiết kế, gọi là các ràng buộc biên. Trong trường hợp tổng quát, các hàm mục tiêu và ràng buộc có thể là tuyến tính hoặc phi tuyến, có thể biểu diễn tường minh hoặc ẩn. Các hàm ẩn thường xuất hiện khi sử dụng mô phỏng số (như phân tích phần tử hữu hạn) để đánh giá đáp ứng (ví dụ giá trị ứng suất). Các biến thiết kế không nhất thiết phải liên tục; các bài toán tối ưu có một số hoặc tất cả biến thiết kế bị giới hạn ở giá trị nguyên hoặc rời rạc không phải hiếm và được gọi là bài toán tối ưu nguyên hoặc rời rạc.
+
+Các kỹ thuật tối ưu hóa (thuật toán) được sử dụng để tìm nghiệm cho bài toán được xác định trong Phương trình \ref{Toiuu}. Quy trình bao gồm việc tìm tổ hợp giá trị các biến thiết kế cho ra giá trị hàm mục tiêu tốt nhất đồng thời thỏa mãn tất cả ràng buộc đẳng thức, bất đẳng thức và ràng buộc biên. Lưu ý rằng với nhiều bài toán, có thể tồn tại nhiều hơn một điểm tối ưu (gọi là tối ưu cục bộ hoặc tương đối). Có nhiều cách phân loại các kỹ thuật tối ưu hóa hiện có. Phần tiếp theo sẽ trình bày tổng quan ngắn gọn về các thuật toán sẵn có, sử dụng cách phân loại rộng thành thuật toán cục bộ hoặc toàn cục. Trong một số trường hợp phù hợp, một thuật toán tiêu biểu sẽ được thảo luận chi tiết hơn để minh họa cho lớp thuật toán đó.
+
+\paragraph{Thuật toán tối ưu hoá cục bộ}\mbox
+
+
+Phần lớn các thuật toán tối ưu hóa cục bộ đều dựa trên gradient. Như tên gọi cho thấy, các kỹ thuật tối ưu hóa dựa trên gradient sử dụng thông tin về gradient để tìm ra nghiệm tối ưu của Phương trình \ref{Toiuu}.
+Các thuật toán dựa trên gradient thường sử dụng quy trình hai bước để đạt đến điểm tối ưu. 
+Quy trình lặp hai bước này để tìm điểm tối ưu có thể được tóm tắt bằng toán học như sau: 
+\begin{equation}
+    x^q = x^{q-1} + \alpha^\star S^q  
+\end{equation} 
+Trong đó bước đầu tiên là sử dụng thông tin gradient để tìm hướng tìm kiếm S để di chuyển. Bước thứ hai là di chuyển theo hướng này cho đến khi không thể tiến xa hơn nữa. Bước thứ hai được gọi là tìm kiếm một chiều hoặc tìm kiếm đường thẳng và cung cấp kích thước bước tối ưu \( \alpha^\star \). 
+ Các thuật toán dựa trên gradient được sử dụng rộng rãi để giải quyết nhiều loại bài toán tối ưu hóa trong kỹ thuật. Những kỹ thuật này phổ biến vì chúng hiệu quả (về số lượng đánh giá hàm cần thiết để tìm ra điểm tối ưu), có thể giải quyết các bài toán với số lượng lớn biến thiết kế và thường yêu cầu ít điều chỉnh tham số đặc thù cho bài toán. Tuy nhiên, các thuật toán này cũng có một số nhược điểm bao gồm chỉ có thể xác định được điểm tối ưu cục bộ, gặp khó khăn khi giải các bài toán tối ưu hóa rời rạc, là các thuật toán phức tạp khó triển khai hiệu quả và có thể dễ bị ảnh hưởng bởi nhiễu số. Các thuật toán tối ưu cục bộ phổ biến bao gồm: Gradient Descent (Giảm gradient), Newton's Method (Phương pháp Newton), Quasi-Newton Methods (BFGS, DFP, L-BFGS), Conjugate Gradient, Levenberg-Marquardt ...
+
+\paragraph{Thuật toán tối ưu hoá toàn cục}\mbox
+
+
+Trong lĩnh vực tối ưu hóa, vấn đề tối ưu cục bộ (\textit{local optimization}) được giải quyết bởi tối ưu toàn cục (\textit{global optimization}). Nhiều bài toán có nhiều điểm tối ưu, như minh họa trong Hình \ref{global} với một hàm một biến đa mô thức. Trong hình này, các điểm cực tiểu tại \( x \approx \pm 1 \) là các cực tiểu địa phương (\textit{local minimum}), trong khi điểm cực tiểu tại \( x = 0 \) là cực tiểu toàn cục (\textit{global minimum}). Cả ba điểm này đều thỏa mãn điều kiện Karush-Kuhn-Tucker (KKT). Các thuật toán tối ưu địa phương sẽ hội tụ về một trong ba điểm này tùy thuộc vào điểm khởi tạo ban đầu. Để xử lý bài toán đa cực tiểu, một phương pháp đơn giản là sử dụng tiếp cận đa khởi tạo (\textit{multistart approach}), trong đó nhiều lần tìm kiếm địa phương được thực hiện từ các điểm khởi tạo khác nhau, thường được sinh ra bằng phương pháp thiết kế thí nghiệm (\textit{Design of Experiments - DOE}).
+\begin{figure}[h] 
+\centering
+\includegraphics[width=0.6\textwidth]{Doan_2_Duong/figure/global.png}
+\caption{ Hàm đa mô thức một chiều }
+\label{global}
+\end{figure}
+Các thuật toán tối ưu toàn cục mang lại khả năng cao hơn trong việc tìm ra điểm tối ưu toàn cục hoặc gần toàn cục so với các thuật toán địa phương. Tuy nhiên, không có thuật toán nào đảm bảo hội tụ đến tối ưu toàn cục một cách tổng quát, và chúng thường được gọi là các thuật toán có tính chất toàn cục. Phổ biến nhất trong thuật toán tối ưu toàn cục là nhóm: thuật toán tiến hóa (\textit{evolutionary algorithms}).
+Thuật toán tiến hóa, như Giải thuật Di truyền (\textit{Genetic Algorithm - GA}) và Tối ưu Bầy đàn (\textit{Particle Swarm Optimization - PSO}), không yêu cầu thông tin gradient và thường làm việc với một quần thể các điểm thiết kế. GA, lấy cảm hứng từ thuyết tiến hóa của Darwin, sử dụng các toán tử như chọn lọc, lai ghép (\textit{crossover}) và đột biến (\textit{mutation}) để tạo ra các thế hệ mới. Trong khi đó, PSO mô phỏng hành vi của bầy đàn, như ong tìm thức ăn, bằng cách cập nhật vị trí và vận tốc của các phần tử dựa trên thông tin cá nhân và toàn cục. Mặc dù mạnh mẽ và dễ triển khai, các thuật toán tiến hóa thường đòi hỏi 
+chi phí tính toán cao, khó xử lý ràng buộc và cần điều chỉnh tham số phù hợp với từng bài toán.
+
+\subsubsection{Lựa chọn thuật toán tối ưu}
+
+Với đặc điểm của bài toán tối ưu bộ dòng sạc cho phương pháp MSCC: hàm phi tuyến, đa biến, đa cực trị. Ta ưu tiên sử dụng các thuật toán tối ưu hoá toàn cục, đặc biệt lưu ý đến hai thuật toán tiến hoá được sử dụng phổ biến nhất: GA và PSO. Thực hiện giải bài toán tối ưu của MSCC để tìm ra bộ dòng sạc bằng GA và PSO, ta thu được bảng giá trị hàm mục tiêu ở hình \ref{GAPSO}, chi tiết về các thuật toán này và cách thức triển khai sẽ được thảo luận kĩ hơn ở phần sau.
+
+\begin{figure}[H] 
+\centering
+\includegraphics[width=0.8\textwidth]{Doan_2_Duong/figure/GAPSO.png}
+\caption{ So sánh giá trị hàm mục tiêu qua các lần lặp}
+\label{GAPSO}
+\end{figure}
+Do đặc tính triển khai ngẫu nhiên của các thuật toán trên, để mang tính khách quan, ta triển khai nhiều lần để tiến hành so sánh. Có thể thấy, với cùng các tham số, hàm mục tiêu thực hiện bởi GA cần ít vòng lặp hơn để hội tụ so với PSO, tức là chi phí tính toán thấp hơn. Tuy nhiên, khi xét đến thời gian thực hiện thuật toán, với bài toán tối ưu bộ dòng sạc MSCC, ta thu được bảng \ref{thoigian}
+\begin{figure}[H] 
+\centering
+\includegraphics[width=0.8\textwidth]{Doan_2_Duong/figure/THOIGIAN.png}
+\caption{So sánh thời gian thực hiện thuật toán }
+\label{thoigian}
+\end{figure}
+
+Có thể thấy, với cùng các tham số, thời gian thực hiện thuật toán GA gấp 15-20 lần thời gian thực hiện bằng PSO. Do đó, nếu xết trên cả hai tiêu chí: thời gian thực hiện và chi phí tính toán thì PSO vượt trội hơn hẳn về thời gian thực hiện nên có thể đánh đổi với chi phí tính toán. Do đó, trong đồ án sẽ giải quyết bài toán tối ưu bộ dòng sạc MSCC bằng thuật toán PSO.
+
+\subsection{Ứng dụng tối ưu bầy đàn để tìm bộ dòng sạc}
+\subsubsection{Nguyên lý của thuật toán tối ưu bầy đàn PSO}
+
+
+Thuật toán PSO được phát triển bởi Eberhart và Kennedy lần đầu tiên vào năm 1995. Nó là một công cụ mạnh mẽ để giải quyết các bài toán tối ưu hóa toàn cục với các hàm mục tiêu đơn hoặc đa mục tiêu chứa nhiều giá trị tối ưu cục bộ. Tính chất đáng chú ý nhất của phương pháp PSO là sự đơn giản và hiệu quả vì chỉ cần hai phương trình mô hình. Một số biến thể của thuật toán PSO đã được đề xuất cho các ứng dụng cụ thể, nhưng phổ biến nhất vẫn là công thức toàn cục (mô hình $G_{best}$) được phát triển bởi Eberhart và Shi.
+\begin{figure}[h] 
+\centering
+\includegraphics[width=0.8\textwidth]{Doan_2_Duong/figure/PSO.png}
+\caption{Khái niệm cập nhật của một hạt trong tìm kiếm bằng PSO}
+\label{PSO}
+\end{figure}
+
+Các thành phần chi phối trải nghiệm bay của mỗi hạt được minh họa trong Hình \ref{PSO} Trong một bài toán với không gian tìm kiếm n chiều, chuyển động của mỗi hạt liên quan đến các vectơ vận tốc và vị trí. Các vectơ vị trí và vận tốc có thể được biểu diễn lần lượt là $\vec{x}=[x_{1},x_{2},\cdots,x_{n}]$ và $\vec{v}=[v_{1},v_{2},\cdots,v_{n}]$. Mỗi hạt sẽ chia sẻ thông tin với phần còn lại của đàn theo một cách giao tiếp nhất định trong quá trình khám phá và khai thác. Sự tương tác này nhằm tối ưu hóa trải nghiệm tìm kiếm, bao gồm phần nhận thức cá nhân và phần xã hội toàn cục. Hạt có giải pháp tốt nhất chia sẻ vị trí ($G_{best}$) với các thành viên khác. Sau đó, mỗi hạt cập nhật hướng bay dựa trên trải nghiệm khám phá cục bộ tốt nhất của chính nó ($P_{best}$) và trải nghiệm toàn cục tốt nhất ($G_{best}$) theo các phương trình sau:
+
+
+\begin{equation}\label{PSO1}
+v_{i}^{n}(k+1) = \underbrace{\omega v_{i}^{n}(k)}_{\text{quán tính}} + \underbrace{\Lambda_{1}\mathfrak{R}_{1}\left(P_{best,i}^{n}-x_{i}^{n}(k)\right)}_{\text{thành phần nhận thức}} + \underbrace{\Lambda_{2}\mathfrak{R}_{2}\left(G_{best,i}^{n}-x_{i}^{n}(k)\right)}_{\text{thành phần xã hội}}
+\end{equation}
+\begin{equation}\label{PSO2}
+x_{i}^{n}(k+1) = x_{i}^{n}(k)+v_{i}^{n}(k+1)
+\end{equation}
+
+Trong đó $x_{i}^{n}(k+1)$ và $x_{i}^{n}(k)$ lần lượt biểu diễn vị trí hiện tại và trước đó trong chiều thứ $n$ của hạt $i$; $v_{i}^{n}(k+1)$ và $v_{i}^{n}(k)$ biểu diễn vận tốc hiện tại và trước đó trong chiều thứ $n$. $\omega$ là trọng số quán tính. $\Lambda_{1}$ và $\Lambda_{2}$ lần lượt là các hệ số học tập nhận thức và xã hội. $\mathfrak{R}_{1}$ và $\mathfrak{R}_{2}$ là hai số ngẫu nhiên trong khoảng [0, 1]. $G_{best}^{n}$ là vị trí có giá trị fitness toàn cục tốt nhất. $P_{best,i}^{n}$ là vị trí mà hạt $i$ từng có giá trị fitness tốt nhất trước đó.
+
+\subsubsection{Khảo sát ảnh hưởng của các tham số}
+Thuật toán PSO có một số tham số quan trọng, bao gồm trọng số quán tính $\omega$, các hệ số học tập $c_1$ và $c_2$, kích thước đàn và đàn ban đầu. Một số nhà nghiên cứu cố định các tham số khác và chỉ nghiên cứu ảnh hưởng của một tham số duy nhất lên thuật toán, trong khi một số khác cũng nghiên cứu tác động của nhiều tham số lên thuật toán.
+\paragraph{Trọng số quán tính}\mbox
+
+
+Các nghiên cứu hiện tại cho rằng trọng số quán tính có ảnh hưởng lớn nhất đến hiệu suất của thuật toán PSO, do đó có nhiều nghiên cứu nhất trong lĩnh vực này. Shi và Eberhart (1998) \cite{shi1998modified} là những người đầu tiên thảo luận về việc lựa chọn tham số trong PSO. Họ đưa hệ số quán tính $\omega$ vào PSO và cải thiện khả năng hội tụ. Một mở rộng của công trình này sử dụng hệ thống mờ để thay đổi phi tuyến trọng số quán tính trong quá trình tối ưu hóa \cite{shi2001fuzzy}.
+Thông thường, người ta tin rằng trong PSO, trọng số quán tính được sử dụng để cân bằng giữa tìm kiếm toàn cục và tìm kiếm cục bộ, với trọng số quán tính lớn hơn có xu hướng tìm kiếm toàn cục trong khi trọng số quán tính nhỏ hơn có xu hướng tìm kiếm cục bộ, do đó giá trị của trọng số quán tính nên giảm dần theo thời gian. Shi và Eberhart \cite{shi1998modified} đề xuất rằng trọng số quán tính nên được đặt trong khoảng [0.9, 1.2] và một trọng số quán tính giảm tuyến tính theo thời gian có thể cải thiện đáng kể hiệu suất của PSO.Từ các nghiên cứu trên, đồ án đưa ra bảng \ref{w} và hình \ref{ww} vẽ minh hoạ ảnh hưởng của trọng số quán tính tới xu hướng tìm kiếm của bầy đàn
+
+
+\begin{table}[ht]
+\caption{Ý nghĩa của trọng số quán tính $\omega$}
+\centering
+\renewcommand{\arraystretch}{1.5} % tăng khoảng cách dòng
+\setlength{\tabcolsep}{20pt} % tăng khoảng cách cột
+\begin{tabular}{|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{5cm}|}
+\hline
+$\omega > 1$ & Khuyến khích khám phá \\
+\hline
+$\omega < 1$ & Tập trung khai thác \\
+\hline
+\end{tabular}
+\label{w}
+\end{table}
+
+\begin{figure}[ht] 
+\centering
+\includegraphics[width=0.7\textwidth]{Doan_2_Duong/figure/trong so quan tinh.png}
+\caption{a, Trọng số quán tính $\omega >1$ \\ b, Trọng số quán tính $\omega <1$ }
+\label{ww}
+\end{figure}
+
+
+\paragraph{Các hệ số học tập $\Lambda_1$ và $\Lambda_2$}\mbox
+
+
+Các hệ số học tập $\Lambda_1$ và $\Lambda_2$ đại diện cho trọng số của các thành phần gia tốc ngẫu nhiên kéo mỗi hạt về phía pBest và gBest. Trong nhiều trường hợp, $\Lambda_1$ và $\Lambda_2$ được đặt là 2.0 để tìm kiếm bao phủ vùng trung tâm pBest và gBest. Một giá trị phổ biến khác là 1.49445 có thể đảm bảo sự hội tụ của thuật toán PSO \cite{clerc2002particle}. Sau nhiều thí nghiệm, Carlisle và Dozier \cite{carlisle2001off} đề xuất một bộ tham số tốt hơn với $\Lambda_1$ và $\Lambda_2$ lần lượt là 2.8 và 1.3, và hiệu suất của thiết lập này đã được xác nhận thêm bởi Schutte và Groenwold \cite{schutte2005study}. Lấy cảm hứng từ ý tưởng trọng số quán tính thay đổi theo thời gian, đã xuất hiện nhiều biến thể PSO có hệ số học tập thay đổi theo thời gian \cite{mohammadi2013combined}, chẳng hạn như hệ số học tập giảm tuyến tính theo thời gian \cite{ratnaweera2004self}.
+Trong hầu hết các trường hợp, hai hệ số học tập $\Lambda_1$ và $\Lambda_2$ có cùng giá trị, để tìm kiếm xã hội và nhận thức có cùng trọng số. Kennedy \cite{kennedy1997minds} nghiên cứu hai trường hợp cực đoan: mô hình chỉ có thành phần xã hội và chỉ có thành phần nhận thức, và kết quả cho thấy hai phần này rất quan trọng đối với thành công của tìm kiếm đàn, trong khi không có kết luận chắc chắn về hệ số học tập không đối xứng. 
+Từ các nghiên cứu trên, đồ án đưa ra bảng \ref{tab:lambda_params} và hình \ref{lamda} vẽ minh hoạ ảnh hưởng của các hệ số học tập tới xu hướng tìm kiếm của bầy đàn
+
+\begin{table}[h]
+\centering
+\caption{Ý nghĩa các tham số hệ số học tập}
+\renewcommand{\arraystretch}{1.6} % Tăng khoảng cách dòng cho dễ đọc
+\begin{tabular}{|p{5cm}|p{8cm}|}
+\hline
+Hệ số gia tốc nhận thức: \( \Lambda_1 \) & Giá trị cao khuyến khích hạt di chuyển về phía vị trí tốt nhất của chính nó (pBest). \\ 
+\hline
+Hệ số gia tốc xã hội: \( \Lambda_2 \) & Giá trị cao khuyến khích hạt di chuyển về phía vị trí tốt nhất của quần thể (gBest). \\ 
+\hline
+Khoảng giá trị khuyến nghị: \( 1.5 \leq \Lambda_1, \Lambda_2 \leq 2.5 \) & Giá trị thông thường được chọn: \( \Lambda_1 = \Lambda_2 = 2.0 \) \\ 
+\hline
+\end{tabular}
+\label{tab:lambda_params}
+\end{table}
+
+\begin{figure}[ht] 
+\centering
+\includegraphics[width=0.7\textwidth]{Doan_2_Duong/figure/heso gia toc.png}
+\caption{a, Hệ số gia tốc $\Lambda_1$ lớn \\ b, Hệ số gia tốc $\Lambda_2$ lớn }
+\label{lamda}
+\end{figure}
+
+\newpage
+\paragraph{Kích thước quần thể}\mbox
+
+
+Kích thước quần thể là một yếu tố có thể ảnh hưởng đến hiệu suất của thuật toán PSO. Thực tế cho thấy một quần thể lớn hơn sẽ làm tăng tính đa dạng của đàn và khả năng khám phá, nhưng đồng thời cũng có thể làm tăng khả năng hội tụ sớm và chi phí tính toán. Tuy nhiên, trong hầu hết các trường hợp đã được chứng minh rằng khi số lượng cá thể vượt quá 50, PSO không còn nhạy cảm với kích thước quần thể \cite{eberhart2001swarm}. Kích thước quần thể khuyến nghị thường lấy trong khoảng 20-50 \cite{wang2018particle}
+Từ các nghiên cứu trên, đồ án đưa ra bảng \ref{quanthe} và hình \ref{quantheee} vẽ minh hoạ ảnh hưởng của kích thước quần thể tới xu hướng tìm kiếm của bầy đàn
+\begin{table}[h]
+\centering
+\caption{Ảnh hưởng của kích thước quần thể trong PSO}
+\renewcommand{\arraystretch}{1.5} % Giãn dòng
+\begin{tabular}{|c|p{10cm}|}
+\hline
+\textbf{Kích thước quần thể lớn} & + Không gian tìm kiếm rộng hơn \newline + Chi phí tính toán cao hơn \\
+\hline
+\textbf{Kích thước quần thể nhỏ} & + Có thể không tìm đến nghiệm tối ưu (rơi vào cực trị cục bộ) \newline + Chi phí tính toán cao hơn \\
+\hline
+{\(20 \leq \text{swarm size} \leq 50\)} 
+&{VD: Với bài toán tối ưu 5 chiều (MSCC) \newline\(\rightarrow\) swarm size = 20} \\
+\hline
+\end{tabular}
+\label{quanthe}
+\end{table}
+
+\begin{figure}[ht] 
+\centering
+\includegraphics[width=0.7\textwidth]{Doan_2_Duong/figure/soluonghat.png}
+\caption{a, Kích thước quần thể lớn \\ b, Kích thước quần thể nhỏ }
+\label{quantheee}
+\end{figure}
+\newpage
+\paragraph{Số lần lặp}\mbox
+
+
+Số lần lặp \textit{(iterations)} trong thuật toán PSO không được quy định như một giá trị cố định, vì nó phụ thuộc vào nhiều yếu tố như bản chất cụ thể của bài toán, độ phức tạp và yêu cầu về độ chính xác. Thông thường, thuật toán có thể dừng lại khi đạt đến số lần lặp tối đa được đặt trước, khi giá trị hàm mục tiêu đạt mức đủ tốt, hoặc khi kết quả không cải thiện sau một số lần lặp nhất định\cite{marini2015particle}. Một giá trị thường gặp trong các ứng dụng thực tế có thể dao động từ 100 đến 1000 lần lặp \cite{gad2022particle}, tuy nhiên cần được điều chỉnh linh hoạt tùy thuộc vào từng trường hợp. Với yêu cầu của bài toán tối ưu 5 chiều (MSCC), đồ án chọn tiêu chí dừng thuật toán bằng số lần lặp vì lý do đơn giản, dễ triển khai, đánh giá. Do đó, đồ án đưa ra bảng \ref{vonglap} và hình \ref{vong;app} vẽ minh hoạ ảnh hưởng của số lần lặp tới xu hướng tìm kiếm của bầy đàn
+
+
+\begin{table}[h]
+\centering
+\caption{Ảnh hưởng của số vòng lặp trong PSO}
+\renewcommand{\arraystretch}{1.5} % Giãn dòng
+\begin{tabular}{|c|p{10cm}|}
+\hline
+\textbf{Vòng lặp lớn} & + Hàm mục tiêu càng tiến gần tới giá trị tối ưu \newline + Thời gian tính toán cao hơn \\
+\hline
+\textbf{Vòng lặp nhỏ} & + Hàm mục tiêu dễ dừng sớm (hội tụ sớm) khi chưa tìm được giá trị tối ưu \newline + Thời gian tính toán thấp hơn\\
+\hline
+{} 
+&{VD: Với bài toán tối ưu 5 chiều (MSCC) \newline\(\rightarrow\) \textit{iterations} = 100} \\
+\hline
+\end{tabular}
+\label{vonglap}
+\end{table}
+
+\begin{figure}[ht] 
+\centering
+\includegraphics[width=0.7\textwidth]{Doan_2_Duong/figure/chu ki.png}
+\caption{a, Số vòng lặp lớn \\ b, Số vòng lặp nhỏ }
+\label{vong;app}
+\end{figure}
+
+\subsubsection{Bài toán tối ưu}
+\paragraph{Sạc dòng không đổi năm giai đoạn}\mbox
+
+
+Từ các phân tích trên, đồ án lựa chọn phương pháp MSCC với 5 giai đoạn sạc, mỗi giai đoạn chuyển đổi dựa trên điện áp ngắt của pin. Dựa theo các tiêu chí đánh giá hiệu suất của phương pháp sạc MSCC đã đề cập ở trên, do giới hạn về thời gian và phạm vi nghiên cứu, đồ án tập trung nghiên cứu tối ưu hoá các tiêu chí: \textit{thời gian sạc, dung lượng sạc}, nhằm mục đích tối ưu hoá hiệu suất MSCC. 
+Do đó, bài toán tối ưu được đặt ra có thể phát biểu như sau: \textit{Tìm kiếm bộ 5 dòng sạc tối ưu cho MSCC nhằm mục đích tối ưu hoá thời gian sạc và dung lượng sạc.}
+ 
+\paragraph{Xây dựng hàm mục tiêu}\mbox
+
+
+Nghiên cứu này xác định mẫu dòng sạc năm giai đoạn tối ưu để đáp ứng tiêu chí thời gian sạc và dung lượng sạc tốt nhất. Do đó, hàm mục tiêu của bài toán này có thể được xây dựng như sau:
+
+\begin{equation}
+\begin{aligned}
+&\textbf{Tối đa hóa:} \quad F\left(T_{ch}(\vec{I}_{i}), C_{charge\text{-}norm}(\vec{I_{i}})\right), \quad \vec{I}_{i} \in \mathbb{S} \\
+&\qquad\qquad\quad\text{Với} \quad \vec{I}_{i} = \left[I_{1}, I_{2}, I_{3}, I_{4}, I_{5}\right] \\
+&\textbf{Ràng buộc:} \quad 0\, \text{phút} \leq T_{ch}\left(\vec{I}_{i}\right) \leq 90\, \text{phút} \\
+&\qquad \qquad \quad 80\% \leq  C_{charge\text{-}norm}\left(\vec{I_{i}}\right) \leq 100\% \\
+&\qquad \qquad \quad I_{i} \geq I_{j} \quad \text{nếu} \quad i < j, \quad i, j = 1, 2, \ldots, 5
+\end{aligned}
+\label{hammuctieu}
+\end{equation}
+
+Trong \ref{hammuctieu}, \(\mathbb{S}\) biểu thị tập hợp tất cả các mẫu sạc khả thi. Hàm mục tiêu là tối đa hóa hàm hiệu quả chi phí \(F\), bao gồm hai chỉ số hiệu suất: thời gian sạc (CT) \(T_{ch}\) và dung lượng sạc chuẩn hóa \(C_{charge-norm}\) (NCC). Trong đó $C_{c-MSCC}$ (Dung lượng sạc khi sử dụng phương pháp MSCC), $C_{c-CCCV}$ (Dung lượng sạc khi sử dụng phương pháp CCCV). Dung lượng sạc được so sánh với phương pháp sạc tiêu chuẩn (CCCV). Từ phương trình \ref{eq:ncc}:
+\begin{align}
+NCC &= \frac{C_{c-MSCC}}{C_{c-CCCV}} \quad 
+\label{eq:ncc}
+\end{align}
+
+Chi tiết về cách xây dựng hàm mục tiêu \(F\) được trình bày trong Mục tiếp theo. Trong \ref{hammuctieu}, tất cả các ràng buộc liên quan đến bài toán tối ưu hóa nên được tích hợp vào hàm mục tiêu dưới dạng các yếu tố phạt. Các ràng buộc về CT và NCC trong bài báo này được quy định trong phạm vi [30, 90] phút và [80\%, 100\%], tương ứng, để đáp ứng các yêu cầu chung của tiêu chí sạc nhanh. Ngoài ra, dòng sạc ở giai đoạn hiện tại không được lớn hơn dòng sạc ở giai đoạn trước đó để giảm ứng suất phản ứng hóa học và tăng dung lượng sạc.
+\paragraph{Bộ Đánh Giá Độ Phù Hợp Suy Luận Mờ (FDFE)}\mbox
+
+
+Giá trị phù hợp trong bài toán tối ưu hóa dựa trên PSO được sử dụng để đánh giá hiệu suất của mẫu sạc áp dụng. Mẫu sạc tốt nhất thu được phải giúp pin cung cấp dung lượng xả lớn nhất trong thời gian sạc ngắn nhất. Do đó, hàm phù hợp \( F(\cdot) \) cho pin có thể được biểu diễn như sau:
+\begin{equation}
+F(T_{ch}, C_{charge\text{-}norm}) = f_{\alpha}(T_{ch}) \cdot T_{ch}(\bar{I}_i) + f_{\beta}(C_{charge\text{-}norm}) \cdot C_{charge\text{-}norm}(\bar{I}_i)
+\label{eq:fuzzy_fitness}
+\end{equation}
+
+Trong đó, các hệ số \( f_{\alpha}(\cdot) \) và \( f_{\beta}(\cdot) \) lần lượt là trọng số của thời gian sạc (CT) và dung lượng sạc chuẩn hóa (NCC), được thêm vào để làm nổi bật đóng góp của chúng vào hàm chi phí.
+Tuy nhiên, theo đặc tính điện hóa và kinh nghiệm kiểm tra thực tế với pin, thời gian sạc và dung lượng sạc phụ thuộc mạnh vào mức dòng sạc, và mối quan hệ giữa thời gian sạc và dung lượng sạc thường trái ngược nhau. Do đó, việc xác định cách phân bổ hệ số trọng số để đạt được độ phù hợp tốt nhất cho mỗi quá trình cập nhật là kết quả chính của phương pháp đề xuất. Việc phân bổ cố định 50\% cho \( f_{\alpha}(\cdot) \) và \( f_{\beta}(\cdot) \) không phải lúc nào cũng mang lại độ phù hợp tốt nhất. Ngược lại, bộ điều khiển mờ mô phỏng trực giác chuyên gia, khiến nó trở nên hấp dẫn và dễ dàng tích hợp các quy tắc heuristic phản ánh kinh nghiệm của các chuyên gia vào FDFE.
+Do đó, đồ án đề xuất một FDFE. Sơ đồ của FDFE đề xuất cho việc đánh giá giá trị phù hợp được thể hiện trong Hình~\ref{fig:FDFE}.
+\begin{figure}[ht] 
+\centering
+\includegraphics[width=0.9\textwidth]{Doan_2_Duong/figure/fdfe.png}
+\caption{Sơ đồ của FDFE được đề xuất.}
+\label{fig:FDFE}
+\end{figure}
+
+Như trong Hình~\ref{fig:FDFE}, CT và NCC được sử dụng làm biến đầu vào, và biến đầu ra là giá trị đánh giá của hàm phù hợp, \( F \). Trong bộ điều khiển mờ, phương pháp suy luận tối thiểu kiểu Mamdani kết hợp với quy trình giải mờ trọng tâm (COA) được sử dụng để tạo ra đầu ra đánh giá rõ ràng. COA tính toán trọng tâm của kết quả suy luận để thu được đầu ra rõ ràng và phép tính được biểu diễn như sau:
+
+\begin{equation}
+y = \frac{\sum_{h=1}^{m} W_h B_h}{\sum_{h=1}^{m} W_h}
+\label{eq:coa}
+\end{equation}
+
+Trong đó \( W_h \) là kết quả suy luận của quy tắc \( h \), \( B_h \) là đầu ra tương ứng của quy tắc \( h \), \( m \) là số quy tắc, và \( y \) là đầu ra rõ ràng.
+
+\begin{figure}[ht] 
+\centering
+\includegraphics[width=0.85\textwidth]{Doan_2_Duong/figure/fuzzy.png}
+\caption{Các hàm thành viên (MFs) của các biến đầu vào/ đầu ra}
+\label{fig:MFs}
+\end{figure}
+
+Các hàm thành viên (MFs) tương ứng với NCC, CT và giá trị phù hợp được minh họa trong Hình~\ref{fig:MFs}(a)--(c). Trong tất cả ba MFs, các tam giác đối xứng với cơ sở bằng nhau và chồng lấn 50\% với các MFs liền kề được chọn. Vùng giá trị (UOD) trong MFs của CT và NCC được xác định trên miền [30 phút, 90 phút] và [80\%, 100\%], tương ứng. UOD của MF đầu ra được xác định trên miền chuẩn hóa [0, 1]. Trong Hình~\ref{fig:MFs}, các giá trị ngôn ngữ VS, SS, MS, M, ML, LL và VL lần lượt đại diện cho rất nhỏ, nhỏ, trung bình nhỏ, trung bình, trung bình lớn, lớn và rất lớn. Từ Hình~\ref{fig:MFs}, mỗi biến đầu vào NCC và CT được ánh xạ thành 5 giá trị ngôn ngữ khác nhau. Do đó, bảng quy tắc mờ đề xuất sẽ bao gồm 25 quy tắc khác nhau. Các quy tắc đầy đủ cho FDFE đề xuất được minh họa trong Bảng~\ref{tab:fuzzy_rules}. Như trong Bảng~\ref{tab:fuzzy_rules}, các quy tắc phân bổ được suy luận để đạt được hàm hiệu quả chi phí tối ưu dựa trên nhận thức rằng dung lượng xả lớn hơn và thời gian sạc ngắn hơn tạo ra giá trị phù hợp tốt hơn và dẫn đến hiệu quả chi phí sạc cao hơn.
+
+\begin{table}[ht]
+  \centering
+  \caption{Bảng suy luận dựa trên luật phục vụ đánh giá độ thích nghi}
+  \setlength{\tabcolsep}{0pt}
+  \renewcommand{\arraystretch}{2}
+  \begin{tabular}{@{} l c c c c c @{}}
+    \toprule
+    \diagbox[
+      width=7em,
+      height=4em,
+    ]%
+      {\(T_{\mathrm{ch}}\)}%
+      {\(C_{\mathrm{cha\text{-}norm}}\)}
+      & \textbf{S} & \textbf{MS}
+      & \textbf{M} & \textbf{ML}
+      & \textbf{L} \\
+    \midrule
+\textbf{S}
+  & \hspace{12pt}\makecell{\textbf{M}\\Rule1}
+  & \hspace{12pt}\makecell{\textbf{MS}\\Rule2}
+  & \hspace{12pt}\makecell{\textbf{S}\\Rule3}
+  & \hspace{12pt}\makecell{\textbf{SS}\\Rule4}
+  & \hspace{12pt}\makecell{\textbf{VS}\\Rule5} \\[8pt]
+\textbf{MS}
+  & \hspace{12pt}\makecell{\textbf{ML}\\Rule6}
+  & \hspace{12pt}\makecell{\textbf{M}\\Rule7}
+  & \hspace{12pt}\makecell{\textbf{MS}\\Rule8}
+  & \hspace{12pt}\makecell{\textbf{S}\\Rule9}
+  & \hspace{12pt}\makecell{\textbf{S}\\Rule10} \\[8pt]
+\textbf{M}
+  & \hspace{12pt}\makecell{\textbf{L}\\Rule11}
+  & \hspace{12pt}\makecell{\textbf{ML}\\Rule12}
+  & \hspace{12pt}\makecell{\textbf{M}\\Rule13}
+  & \hspace{12pt}\makecell{\textbf{MS}\\Rule14}
+  & \hspace{12pt}\makecell{\textbf{S}\\Rule15} \\[8pt]
+\textbf{ML}
+  & \hspace{12pt}\makecell{\textbf{LL}\\Rule16}
+  & \hspace{12pt}\makecell{\textbf{L}\\Rule17}
+  & \hspace{12pt}\makecell{\textbf{ML}\\Rule18}
+  & \hspace{12pt}\makecell{\textbf{M}\\Rule19}
+  & \hspace{12pt}\makecell{\textbf{MS}\\Rule20} \\[8pt]
+\textbf{L}
+  & \hspace{12pt}\makecell{\textbf{VL}\\Rule21}
+  & \hspace{12pt}\makecell{\textbf{LL}\\Rule22}
+  & \hspace{12pt}\makecell{\textbf{L}\\Rule23}
+  & \hspace{12pt}\makecell{\textbf{ML}\\Rule24}
+  & \hspace{12pt}\makecell{\textbf{M}\\Rule25} \\[8pt]
+\bottomrule
+  \end{tabular}
+  \label{tab:fuzzy_rules}
+\end{table}
+
+
+Do đó, việc phân bổ trọng số được điều khiển bởi một tập hợp các quy tắc kiểm soát thay vì hệ số tỷ lệ cố định. FDFE mô phỏng kinh nghiệm chuyên gia để đạt được phân bổ trọng số phù hợp, giúp dễ dàng tích hợp các quy tắc heuristic phản ánh kinh nghiệm chuyên gia vào quá trình tính toán.
+\paragraph{Quy trình tìm kiếm dựa trên PSO}\mbox
+
+
+\begin{figure}[ht] 
+\centering
+\includegraphics[width=0.9\textwidth]{Doan_2_Duong/figure/psoluudo.png}
+\caption{Lưu đồ quá trình tìm kiếm bộ dòng sạc tối ưu bằng PSO}
+\label{fig:flowchart}
+\end{figure}
+
+Hình~\ref{fig:flowchart} trình bày lưu đồ của thuật toán tìm kiếm điều khiển mờ dựa trên PSO được áp dụng trong đồ án này. Các bước vận hành chính được mô tả như sau:
+
+\textbf{Bước 1:} Ước lượng các tham số của mô hình Thevenin. Dung lượng và điện trở tổng được ước tính bằng phương pháp đề xuất. 
+
+\textbf{Bước 2:} Khởi tạo các tham số của thuật toán PSO, bao gồm trọng số quán tính $\omega$ và các hệ số học $\Lambda_1$ và $\Lambda_2$. Các mẫu sạc ban đầu cho giai đoạn 1 của mỗi pin được tạo ngẫu nhiên. 
+
+\textbf{Bước 3:} Tính toán thời gian sạc và dung lượng sạc chuẩn hoá tương ứng theo các phương trình của vòng lặp ở lưu đồ \ref{tinhtoan thoi gian sac}
+
+\textbf{Bước 4:} Thời gian sạc và độ dung lượng sạc chuẩn hoá được đưa vào làm đầu vào của suy luận mờ để xác định giá trị fitness của mỗi hạt trong quần thể. 
+
+\textbf{Bước 5:} Kiểm tra điều kiện hội tụ: Đủ số vòng lặp quy định ? Khi điều kiện được thỏa mãn, nghiệm tối ưu sẽ được xuất ra.
+
+\textbf{Bước 6:} Nếu điều kiện hội tụ chưa đạt được, cập nhật biến theo phương trình \ref{PSO1} và \ref{PSO2}, lặp lại Bước 3 đến Bước 5 cho đến khi điều kiện hội tụ được thỏa mãn và kết quả tối ưu được xuất ra.
+
+
+\subsection{Tìm kiếm bộ dòng sạc tối ưu với từng mức SoC ban đầu}
+
+\subsubsection{Dự đoán dòng sạc tối ưu bằng mô hình pin R-C đơn giản}
+\begin{figure}[ht] 
+\centering
+\includegraphics[width=0.6\textwidth]{Doan_2_Duong/figure/rc.png}
+\caption{Mô hình pin R-C đơn giản}
+\label{fig:R-C}
+\end{figure}
+\begin{figure}[ht] 
+\centering
+\includegraphics[width=0.6\textwidth]{Doan_2_Duong/figure/3-Figure2-1.png}
+\caption{Điện áp và dòng điện quá trình sạc MSCC mô hình pin R-C}
+\label{fig:R-C2}
+\end{figure}
+
+Từ tài liệu tham khảo \cite{ref51,ref75}, các tác giả sử dụng mô hình pin R-C đơn giản (Hình \ref{fig:R-C} \ref{fig:R-C2}).
+Bài toán tối ưu được phát biểu như sau: Tìm giá trị dòng sạc đầu tiên $I_1$ để thời gian sạc ngắn nhất trong khi vẫn đảm bảo sạc đầy dung lượng pin:
+\begin{equation}
+\begin{aligned}
+&{\text{minimize}} && T(I_1) \\
+&\text{subject to} && Q = 2600\,\text{mAh}
+\end{aligned}
+\end{equation}
+
+
+\paragraph{Tổng thời gian sạc} \mbox
+
+
+Các giá trị điện áp được biểu diễn như ở phương trình: 
+\[
+\left\{
+\begin{aligned}
+    V_T &= I \times R_{\text{eq}} + V_{C_{\text{eq}}} \\
+    V_{C_{\text{eq}}} &= \frac{1}{C} \int i_c(t)\,dt + V_{\text{initial}} \\
+    V_{R_{\text{eq}}} &= I \times R_{\text{eq}}
+\end{aligned}
+\right.
+\]
+Với điều kiện giải phương trình $V_T=V_{cutoff}$, thời gian sạc của 5 mức sạc: 
+\begin{equation}
+    T = \sum \Delta t_i \\
+ = \frac{1}{I_1} \left( V_{\text{cutoff}} - V_{\text{initial}} - I_1 R_{\text{eq}} \right)
++ \sum_{i=1}^{n-1} (I_i - I_{i+1}) R_{\text{eq}} \times \frac{C_{\text{eq}}}{I_{i+1}}
+\label{T}
+\end{equation}
+
+
+
+Để tìm giá trị hàm thời gian nhỏ nhất theo dòng sạc, các tác giả đã sử dụng phép lấy đạo hàm bậc nhất cho phương trình \ref{T}. Dòng sạc tối ưu tuân theo quy luật: 
+\begin{equation}
+\label{eq:optimal_current}
+I_n = \sqrt{I_{n-1} \times I_{n+1}}, \quad n \geq 3
+\end{equation}
+
+Với quy luật trung bình nhân, các dòng sạc tối ưu tuân theo cấp số nhân với công bội $q$ có dạng: 
+\begin{itemize}
+  \item Cấp số nhân:
+  \[
+  \begin{aligned}
+    I_2 &= I_1 q \\
+    I_3 &= I_1 q^2 \\
+    I_4 &= I_1 q^3 \\
+        &\vdots \\
+    I_n &= I_1 q^{n-1}
+  \end{aligned}
+  \]
+
+  \item Tính chất trung bình nhân:
+  \[
+  \sqrt{I_{n-1} \times I_{n+1}} = \sqrt{I_1^2 q^{2(n-1)}} = I_1 q^{n-1} = I_n
+  \]
+  \item Trong đó công bội : $q = \sqrt[n-1]{\dfrac{I_5}{I_1}}$
+\end{itemize}
+
+Thay ngược trở lại, tổng thời gian sạc được xác định: 
+\[
+T = \frac{(V_{T_{\text{cutoff}}} - \text{OCV}) \, C_{\text{eq}}}{I_1} + \left( \frac{4}{q} - 5 \right) C_{\text{eq}} R_{\text{eq}}
+\]
+
+Hay có thể viết dưới dạng:
+\[
+T = \frac{(V_{T_{\text{cutoff}}} - \text{OCV}) \, C_{\text{eq}}}{I_1} + \left( 4 \sqrt[4]{\frac{I_1}{I_5}} - 5 \right) C_{\text{eq}} R_{\text{eq}}
+\]
+
+Ở đây nếu coi giá trị $I_1$ là một biến. Không nhất thiết $I_1=2.6A (1C)$ như đề bài. Thực hiện phép đạo hàm theo biến $I_1$ để tìm giá trị nhỏ nhất của $T$, ta thu được giá trị tối ưu của dòng $I_1$ như sau: 
+\begin{equation}
+    I_1 = \sqrt[n]{\left( \dfrac{{V_{\text{cutoff}} - V_{\text{initial}}}}{R_{\text{eq}}} \right)^{n-1}} \times I_n
+    \label{In}
+\end{equation}
+
+Trong đó:
+\begin{itemize}
+  \item \( V_{\text{cutoff}} \) là điện áp ngưỡng chuyển mức hoặc dừng sạc,
+  \item \( V_{\text{initial}} \) là điện áp giữa 2 cực của pin trước khi sạc.
+  
+  Ở $SoC=0\%, V_{\text{initial}}=OCV$, 
+  \item \( R_{\text{eq}} \) là điện trở mô hình mạch RC,
+  \item \( I_n \) là dòng sạc cuối.
+\end{itemize}
+Công thức \ref{In} cho thấy để thời gian sạc ngắn nhất, dòng sạc đầu tiên $I_1$ chỉ phụ thuộc vào điện áp $V_{\text{initial}}$, tức là mức $SoC$ ban đầu của pin 
+
+
+\paragraph{Tổng dung lượng sạc}\mbox
+
+
+Từ phương trình thời gian sạc \ref{T}, tổng dung lượng sạc được xác định bằng định luật Colomb counting: 
+\begin{equation}
+    Q = (V_{T_{\text{cutoff}}} - V_{\text{initial}}) \, C_{\text{eq}} - I_5 \, C_{\text{eq}} \, R_{\text{eq}}
+    \label{Q}
+\end{equation}
+
+Từ công thức \ref{Q}, dung lượng sạc được chỉ phụ thuộc vào dòng sạc cuối $I_5$. Do đó để sạc đầy dung lượng pin, ta chỉ cần xác định dòng sạc $I_5$.
+
+Công thức \ref{Q} cũng có thể viết lại thành: 
+\begin{equation}
+    Q = (V_{T_{\text{cutoff}}} - V_{\text{initial}} -V_{R_{\text{eq}}}) \, C_{\text{eq}} = \Delta U_{C_{eq}}\times C_{eq}
+    \label{Q1}
+\end{equation}
+
+Từ công thức \ref{Q1}, ta thấy dung lượng pin sạc được chính là dung lượng của tụ. Do đó, nếu điện áp đo được giữa 2 đầu pin ở trạng thái ban đầu là $V_{intitial}$, ta có thể xác định được $SoC$ ban đầu theo công thức: 
+\begin{equation}
+    SoC_{initial} = \dfrac{\Delta U_{C_{eq}}\times C_{eq}}{Q_0} =  \dfrac{ (V_{initial}-OCV)\times C_{eq}}{Q_0}
+\end{equation}
+
+Để sạc được dung lượng $Q_0$ mong muốn, tổng dung lượng còn lại phải sạc: 
+\begin{align}
+    Q &= Q_0 - Q_0 \times SoC \notag \\
+    \Rightarrow\quad (1 - SoC) \times Q_0 &= (V_{T_{\text{cutoff}}} - V_{\text{initial}}) \, C_{\text{eq}} - I_5 \, C_{\text{eq}} \, R_{\text{eq}}
+    \label{I5}
+\end{align}
+Từ công thức \ref{I5}, ta xác định được dòng sạc cuối $I_5$ để luôn sạc được đầy pin (dung lượng $Q_0$ mong muốn)
+
+\begin{figure}[ht] 
+\centering
+\includegraphics[width=1\textwidth]{Doan_2_Duong/figure/RC.png}
+\caption{(a) So sánh thời gian sạc (b) So sánh dòng điện sạc (c) So sánh dung lượng sạc}
+\label{fig:ss1}
+\end{figure}
+
+Hình \ref{fig:ss1} (a) cho thấy sạc với dòng điện ban đầu $I_1$ tối ưu, thời gian sạc được cải thiện ở mọi mức $SoC$ ban đầu, cải thiện lớn nhất là $18\%$ so với thời gian sạc bằng dòng 1C
+
+Hình \ref{fig:ss1} (b) cho thấy ở các mức $SoC<66.95\%$, muốn sạc nhanh hơn (sạc bằng dòng tối ưu), ta cần nâng dòng điện sạc ban đầu $I_1$, nhưng ở mức $SoC>66.95\%$, muốn sạc nhanh hơn, dòng điện sạc ban đầu $I_1<1C$  \textbf{$\rightarrow$ Ở mức SoC ban đầu cao, không nhất thiết dòng điện sạc ban đầu phải lớn thì thời gian sạc mới ngắn nhất.}
+
+Hình \ref{fig:ss1} (c) cho thấy bất kể sạc ở dòng điện bao nhiêu, dung lượng pin vẫn luôn được đảm bảo $Q=2600mAh$ (pin vẫn luôn được sạc đầy)
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+%% --------------------------------------------------%%
+%------------ CHAPTER 4 ---------------------------%
+%%-----------------------------------------------------%
+\section*{CHƯƠNG 4. MÔ PHỎNG VÀ THỰC NGHIỆM}
+    \addcontentsline{toc}{section}{\numberline{} CHƯƠNG 4. MÔ PHỎNG VÀ KẾT QUẢ}
+\setcounter{section}{4}
+    \setcounter{subsection}{0}
+    \setcounter{figure}{0}
+        \setcounter{table}{0}
+            \setcounter{equation}{0}
+
+%--------------------------------------------------------%
+
+\subsection{Quy trình thực nghiệm}
+Đồ án này lựa chọn viên pin Lithium-Ion INR18650-35E của hãng SamSung với 3 cell pin (hình \ref{samsung}) để thực hiện mô phỏng. Các thông số kĩ thuật của viên pin được cho trên Bảng \ref{tab:pin_specs} Với 3 cell pin mắc nối tiếp, ta xác định được điện áp sạc là $12V$, dòng điện sạc là $2.4A$.
+\begin{figure}[h] 
+\centering
+\includegraphics[width=0.7\textwidth]{Doan_2_Duong/figure/SAMSUNG.png}
+\caption{Pin Lithium-Ion INR18650-35E }
+\label{samsung}
+\end{figure}
+
+\begin{table}[h]
+    \centering
+    \caption{Thông số kỹ thuật của pin Lithium-ion INR18650-35E}
+    \begin{tabular}{|l|c|}
+        \hline
+        \textbf{Thông số} & \textbf{Giá trị} \\
+        \hline
+        Dung lượng  & 3500mAh \\
+        \hline
+        Điện áp danh định & 3,6V - 3,7V \\
+        \hline
+        Điện áp sạc & 4.2V \\
+        \hline
+        Dòng xả & 8A \\
+        \hline
+        Dòng xả tối đa & 13A \\
+        \hline
+        Dòng sạc & 0,6C (2000mA) \\
+        \hline
+    \end{tabular}
+
+    \label{tab:pin_specs}
+\end{table}
+
+
+\subsection{Thực nghiệm HPPC}
+Sau khi thực hiện quy trình HPPC trong thực nghiệm cùng với các phương pháp xác định mô hình được nêu trên, thông số mô hình Thevenin mỗi 10\% SoC được biểu diễn trong các bảng sau:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \textbf{SoC} & \textbf{$U_{oc}$ (V)} & \textbf{$R_0$ ($\Omega$)} & \textbf{$R_p$ ($\Omega$)} & \textbf{$C_p$ (F)} \\
+        \hline
+        0 & 2.69459 & 0.05 & 0.004330288 & 3.935360802 \\
+        0.1 & 3.77517 & 0.05 & 0.004538091 & 3.518353187 \\
+        0.2 & 3.8734 & 0.05 & 0.005041526 & 3.17372061 \\
+        0.3 & 3.91024 & 0.05 & 0.005668581 & 2.820837894 \\
+        0.4 & 3.92956 & 0.05 & 0.006476671 & 2.448362667 \\
+        0.5 & 3.94153 & 0.05 & 0.007549749 & 2.115255953 \\
+        0.6 & 3.95005 & 0.05 & 0.009026119 & 1.757598757 \\
+        0.7 & 3.95808 & 0.05 & 0.011312091 & 1.409920694 \\
+        0.8 & 3.97302 & 0.05 & 0.015033227 & 1.060544082 \\
+        0.9 & 4.02641 & 0.05 & 0.022491672 & 0.707552099 \\
+        1 & 4.26586 & 0.05 & 0.044521144 & 0.357316708 \\
+        \hline
+    \end{tabular}
+    \caption{Thông số mô hình Thevenin}
+    \label{tab:thevenin}
+\end{table}
+
+
+\subsection{Biểu diễn thông số mô hình theo trạng thái sạc (SoC)}
+Hiện tại, thông số của các mô hình pin mới chỉ là những giá trị rời rạc tương ứng với mỗi 10\% SoC. Ta cần biểu diễn những thông số đó thành một hàm liên tục theo SoC để có thể mô phỏng.
+
+\subsubsection{Biểu diễn $U_{oc}$ theo SoC}
+Từ nghiên cứu \cite{bialon2023}, hàm Tremblay2 là hàm tối ưu nhất để biểu diễn \( U_{oc}(SoC) \):
+
+\begin{equation}
+U_{oc}(SoC) = a + b \cdot e^{-c \cdot (1 - SoC)} - \frac{d}{SoC + e} 
+\end{equation}
+
+Ta tiếp tục sử dụng công cụ Curve fitting của Matlab để khớp đường cong các giá trị \( U_{oc} \) từ thực nghiệm với đường cong do hàm Tremblay2 vẽ ra (Hình 3.1.).Từ đó, ước lượng được các tham số \( a \), \( b \), \( c \), \( d \) và \( e \). Ta được hàm \( U_{oc}(SoC) \) như sau:
+
+\begin{equation}
+U_{oc}(SoC) = 3.9892 + 0.2400 \cdot e^{-12.5814 \cdot (1 - SoC)} - \frac{0.0256}{SoC + 0.0198} 
+\end{equation}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Doan_2_Duong/figure/OCV.png}
+    \caption{Đường cong \( U_{oc} \) theo SoC}
+    \label{fig:uoc_soc}
+\end{figure}
+
+
+
+\subsubsection{Biểu diễn \( R \), \( C \) theo SoC}
+
+Hàm đa thức bậc 7 là hàm tối ưu để biểu diễn giá trị nội trở, điện trở và tụ điện phân cực theo SoC:
+
+\begin{equation}
+f(SoC) = a_0 + a_1 x + a_2 x^2 + a_3 x^3 + a_4 x^4 + a_5 x^5 + a_6 x^6 + a_7 x^7 
+\end{equation}
+
+Ta có các kết quả biểu diễn các giá trị \( R \), \( C \) của mô hình Thevenin và mô hình DP được cho trên bảng dưới đây. Giá trị nội trở \( R_0 \) có kết quả là hằng số và bằng \( 0.05\,\Omega \).   
+  
+.
+
+\begin{table}[h]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+        \hline
+        Tham số & \( a_0 \) & \( a_1 \) & \( a_2 \) & \( a_3 \) & \( a_4 \) & \( a_5 \) & \( a_6 \) & \( a_7 \) \\
+        \hline
+        \( R_p \) & 0.0043 & 0.0117 & -0.2011 & 1.5449 & -5.2581 & 9.0585 & -7.6792 & 2.5635 \\
+        \( C_p \) & 3.9333 & -5.1095 & 15.5529 & -73.1474 & 180.9128 & -240.9101 & 163.3745 & -44.2506 \\
+        \hline
+    \end{tabular}
+    }
+    \caption{Tham số của đa thức bậc 7 biểu diễn tụ điện và điện trở mô hình Thevenin theo SoC}
+    \label{tab:thevenin_poly}
+\end{table}
+
+
+
+\subsection{Kiểm chứng mô hình pin}
+\subsubsection{Mô phỏng mô hình pin}
+Việc kiểm chứng mô hình pin được thực hiện qua quá trình sạc CC-CV cho từng mô hình mạch điện tương đương của pin được thực hiện bằng phần mềm PSIM. Trong đó pin được sạc với dòng 2A, điện áp 4.2V và các thành phần nguồn áp, điện trở, tụ điện phụ thuộc vào SoC được xây dựng bằng các khối logic có trong phần mềm. Thể hiện qua hình \ref{fig:cccv_graph}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Doan_2_Duong/figure/PSIMthevenin.png}
+    \caption{Mô phỏng sạc CC-CV cho mô hình Thevenin}
+    \label{fig:cccv_graph}
+\end{figure}
+
+
+Tính chính xác của mô hình pin được kiểm chứng bằng cách so sánh đồ thị của đáp ứng điện áp sạc CC-CV giữa mô hình và thực nghiệm. Hình \ref{fig:voltage_compare} cho thấy sự tương đồng về đường cong điện áp sạc của 3 mô hình (đường màu xanh) và thực nghiệm (đường nét đứt màu đỏ). Tuy nhiên, để so sánh chi tiết hơn về tính chính xác của 3 mô hình ta cần phải xét đến sai số như RMSE.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Doan_2_Duong/figure/CCCV.png}
+    \caption{Đồ thị so sánh điện áp, dòng điện, dung lượng mô hình Thevenin với thực nghiệm}
+    \label{fig:voltage_compare}
+\end{figure}
+
+
+\subsubsection{Đánh giá sai số}
+ Root Mean Square Error Root Mean Square Error (RMSE) phản ánh mức độ sai lệch trung bình của mô hình trên toàn bộ tập dữ liệu \cite{nemes2019}. Công thức tính RMSE được cho như sau:
+
+\begin{equation}
+RMSE = \sqrt{\frac{\sum_{i=1}^{N} (v_t - v_t')^2}{N}}
+\end{equation}
+
+Trong đó, \( v_t \) và \( v_t' \) lần lượt là điện áp thực nghiệm (V) và điện áp mô hình (V) tại thời điểm \( i \), \( N \) là số lượng điểm dữ liệu. Áp dụng công thức này để tính RMSE của đáp ứng điện áp giữa các mô hình thực nghiệm với \( N = 1000000 \), kết quả được trình bày trong Bảng \ref{tab:rmse}.
+
+\begin{table}[h]
+    \centering
+    \caption{RMSE của điện áp, dòng điện, dung lượng}
+    \begin{tabular}{|c|c|}
+        \hline
+        Giá trị & RMSE \\
+        \hline
+        Điện áp (V) & 0.012114 \\
+        Dòng điện (A) & 0.002430 \\
+        Dung lượng (C) & 0.002419 \\
+        \hline
+    \end{tabular}
+    \label{tab:rmse}
+\end{table}
+
+
+
+\subsection{Tìm kiếm bộ dòng sạc tối ưu bằng PSO}
+
+Thuật toán tối ưu hoá bầy đàn (PSO) được triển khai trên MATLAB bằng ngôn ngữ code MATLAB. Mục tiêu là tìm kiếm bộ dòng sạc để thoả mãn hàm mục tiêu cho bởi \ref{eq:fuzzy_fitness} là nhỏ nhất
+Trong đó, hàm mục tiêu được đánh giá bởi Bộ đánh giá độ phù hợp suy luận mờ (FDFE). Bộ đánh giá FDFE được triển khai trên ứng dụng Fuzzy Logic của MATLAB (hình \ref{fig:app}). Giá trị hàm mục tiêu càng nhỏ thì thời gian sạc càng ngắn và dung lượng sạc càng lớn.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Doan_2_Duong/figure/fuzyyapp.png}
+    \caption{Ứng dụng Fuzzy Logic Deginer trên MATLAB}
+    \label{fig:app}
+\end{figure}
+
+
+\begin{table}[ht]
+\centering
+\caption{Các thông số của thuật toán PSO}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Tham số} & \textbf{Kí hiệu} & \textbf{Giá trị} \\
+\hline
+Số lượng cá thể & $N$ & 50 \\
+\hline
+Số vòng lặp & $n$ & 500 \\
+\hline
+Trọng số quán tính & $\omega$ & 1 \\
+\hline
+Hệ số gia tốc & $\Lambda_1, \Lambda_2$ & 2 \\
+\hline
+\end{tabular}
+\label{PSOO}
+\end{table}
+
+Thuật toán PSO được triển khai với các tham số cho ở bảng \ref{PSOO}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Doan_2_Duong/figure/constf.png}
+    \caption{Giá trị hàm mục tiêu hội tụ}
+    \label{fig:costf}
+\end{figure}
+Kết quả cho ở hình \ref{fig:costf} cho thấy, sau 500 vòng lặp, hàm mục tiêu đã hội tụ về giá trị nhỏ nhất tại $F=0.4857$. Với bộ dòng sạc tối ưu $[I_1,I_2,I_3,I_4,I_5]=[2,1.452,1.097,0.6878,0.4452](A)$. 
+Khi đó, thời gian sạc và dung lượng sạc tương ứng:
+\[
+\left\{
+\begin{aligned}
+    Q_{MSCC} &= 1800.19mAh = 101.3\% Q_{CCCV} \\
+    t_{MSCC} &= 3455s = 92.5\% t_{CCCV}
+\end{aligned}
+\right.
+\]
+
+
+\subsection{Xây dựng bảng các bộ dòng sạc tối ưu}
+
+
+
+
+
+\newpage
+% CONCLUSIONS
+\section*{KẾT LUẬN}
+    \phantomsection\addcontentsline{toc}{section}{\numberline {}KẾT LUẬN}
+    
+ Trong đồ án này, quá trình tính toán và thiết kế điều khiển cho bộ biến đổi Buck ứng dụng sạc pin Lithium - ion đã được thực hiện. Các kết quả tính toán đã được kiểm chứng thông qua
+ mô phỏng bằng phần mềm PSIM, cho thấy thiết kế đáp ứng các thông số kỹ thuật đặt ra. Ngoài ra yêu cầu về đảm bảo quá trình sạc CC-CV cũng được kiểm chứng lại.
+ Tuy nhiên trong đồ án kết quả sạc CC-CV trên pin lithium-ion vẫn chưa được kiểm chứng lại do hạn chế về thời gian và thiết bị. Do đó, sau
+ đồ án này sẽ tiếp tục kiểm chứng kết quả sạc CC-CV.
+
+
+\newpage
+
+% REFERENCES
+\phantomsection\addcontentsline{toc}{section}{\numberline {}TÀI LIỆU THAM KHẢO}
+
+\bibliography{citation}
+\newpage
+
+% APPENDIX
+\section*{PHỤ LỤC}
+    \phantomsection\addcontentsline{toc}{section}{\numberline{} PHỤ LỤC}
+
+
+\end{document}

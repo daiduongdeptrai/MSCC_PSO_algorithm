@@ -1,0 +1,3 @@
+../Core/Src/_Speaker.c:32:6:speakerInit	1
+../Core/Src/_Speaker.c:49:6:speakerUpdate	4
+../Core/Src/_Speaker.c:79:9:setSpeaker_Config	2

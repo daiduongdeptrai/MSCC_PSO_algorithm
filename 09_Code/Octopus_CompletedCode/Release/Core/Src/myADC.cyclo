@@ -1,0 +1,4 @@
+../Core/Src/myADC.c:16:6:adcInit	1
+../Core/Src/myADC.c:35:6:adcRead	2
+../Core/Src/myADC.c:49:6:adcWaitforconversion	2
+../Core/Src/myADC.c:59:6:adcResumeconversion	1

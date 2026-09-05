@@ -1,0 +1,9 @@
+../Core/Src/_controller.c:20:6:_Controller_Init	0	static
+../Core/Src/_controller.c:62:6:_Controller_RampUp	0	static
+../Core/Src/_controller.c:79:6:_Controller_AntiWindUp	8	static
+../Core/Src/_controller.c:105:6:_Controller_CV	16	static
+../Core/Src/_controller.c:135:6:_Controller_CC	16	static
+../Core/Src/_controller.c:164:7:ISR_Delay_us	0	static
+../Core/Src/_controller.c:189:6:_Controller_CC_UpdateOperatingPoint	16	static
+../Core/Src/_controller.c:209:6:_Controller_CV_CC	40	static
+../Core/Src/_controller.c:246:6:_Controller_CV_CC_Reuse	40	static

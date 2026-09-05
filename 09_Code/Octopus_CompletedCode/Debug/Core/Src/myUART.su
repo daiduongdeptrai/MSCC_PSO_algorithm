@@ -1,0 +1,3 @@
+../Core/Src/myUART.c:14:6:uart_txInit	16	static
+../Core/Src/myUART.c:27:19:UART_DMAPause	120	static,ignoring_inline_asm
+../Core/Src/myUART.c:57:19:UART_DMAResume	120	static,ignoring_inline_asm

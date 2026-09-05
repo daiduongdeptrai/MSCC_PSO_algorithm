@@ -1,0 +1,4 @@
+../Core/Src/_HMI.c:42:6:hmiCleardisplay	1
+../Core/Src/_HMI.c:61:6:hmiInit	1
+../Core/Src/_HMI.c:80:6:hmiUpdatemessageVN	35
+../Core/Src/_HMI.c:274:6:hmiUpdatedisplay	11

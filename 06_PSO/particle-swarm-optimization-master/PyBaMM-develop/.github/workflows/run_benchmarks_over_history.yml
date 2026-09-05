@@ -1,0 +1,100 @@
+# GitHub actions workflow that runs the benchmark suite in benchmarks/
+# from "commit_start" to "commit_end".  It pushes the results to the
+# pybamm-bench repo and updates the display website.
+
+# This workflow is meant to be triggered manually, see
+# https://docs.github.com/en/enterprise-server@3.0/actions/managing-workflow-runs/manually-running-a-workflow
+
+name: Manual benchmarks
+on:
+  workflow_dispatch:
+    inputs:
+      commit_start:
+        description: "Identifier of commit from which to start"
+        default: "v0.1.0"
+      commit_end:
+        description: "Identifier of commit at which to end"
+        default: "develop"
+      ncommits:
+        description: "Number of commits to benchmark between commit_start and commit_end"
+        default: "100"
+
+env:
+  PYBAMM_DISABLE_TELEMETRY: "true"
+
+jobs:
+  benchmarks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Set up Python 3.12
+        uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
+        with:
+          python-version: 3.12
+
+      - name: Install nox and asv
+        run: pip install -U pip nox asv
+
+      - name: Fetch develop branch
+        # Not required when worklow trigerred
+        # on develop, but useful when
+        # experimenting/developing on another branch.
+        if: github.ref != 'refs/heads/develop'
+        run: |
+          git fetch origin develop:develop
+
+      - name: Run benchmarks
+        run: |
+          asv machine --machine "GitHubRunner"
+          asv run -m "GitHubRunner" -s ${{ github.event.inputs.ncommits }} \
+          ${{ github.event.inputs.commit_start }}..${{ github.event.inputs.commit_end }}
+
+      - name: Upload results as artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: asv_over_history_results
+          path: results
+          if-no-files-found: error
+
+  publish-results:
+    if: github.repository_owner == 'pybamm-team'
+    name: Push and publish results
+    needs: benchmarks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python 3.12
+        uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5.4.0
+        with:
+          python-version: 3.12
+
+      - name: Install asv
+        run: pip install asv
+
+      - name: Checkout pybamm-bench repo
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: pybamm-team/pybamm-bench
+          token: ${{ secrets.BENCH_PAT }}
+
+      - name: Download results artifact(s)
+        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
+        with:
+          path: results
+          merge-multiple: true
+
+      - name: Copy new results and push to pybamm-bench repo
+        env:
+          PUSH_BENCH_EMAIL: ${{ secrets.PUSH_BENCH_EMAIL }}
+          PUSH_BENCH_NAME: ${{ secrets.PUSH_BENCH_NAME }}
+        run: |
+          git config --global user.email "$PUSH_BENCH_EMAIL"
+          git config --global user.name "$PUSH_BENCH_NAME"
+          git add results
+          git commit -am "Add new results"
+          git push
+
+      - name: Publish results
+        run: |
+          asv publish
+          git fetch origin gh-pages:gh-pages
+          asv gh-pages

@@ -1,0 +1,11 @@
+../Core/Src/_BMS.c:66:6:HAL_UART_RxCpltCallback	0	static
+../Core/Src/_BMS.c:90:6:handle_uart_command	8	static
+../Core/Src/_BMS.c:361:6:bmsUpdatestatus	32	static
+../Core/Src/_BMS.c:169:6:_main_interrupt_service	120	static
+../Core/Src/_BMS.c:485:6:bmsInit	0	static
+../Core/Src/_BMS.c:491:6:bmsReadnumcharged	8	static
+../Core/Src/_BMS.c:101:6:_system_initialization	24	static
+../Core/Src/_BMS.c:496:6:bmsIncreasenumcharged	8	static
+../Core/Src/_BMS.c:145:6:_ext_interrupt_service	16	static
+../Core/Src/_BMS.c:502:6:bmsClearAllFlags	0	static
+../Core/Src/_BMS.c:297:6:_main_inf_loop	16	static

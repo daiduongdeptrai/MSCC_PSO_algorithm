@@ -1,0 +1,49 @@
+[System]
+Name='mamdanitype1_sugeno'
+Type='sugeno'
+Version=2.0
+NumInputs=2
+NumOutputs=1
+NumRules=9
+AndMethod='min'
+OrMethod='max'
+ImpMethod='prod'
+AggMethod='sum'
+DefuzzMethod='wtaver'
+
+[Input1]
+Name='input1'
+Range=[0 50]
+NumMFs=3
+MF1='Lạnh':'trapmf',[0 0 20 25]
+MF2='Vừa':'trimf',[20 25 30]
+MF3='Nóng':'trapmf',[25 30 100 100]
+
+[Input2]
+Name='input2'
+Range=[0 50]
+NumMFs=3
+MF1='Lạnh':'trapmf',[0 0 20 25]
+MF2='Vừa':'trimf',[20 25 30]
+MF3='Nóng':'trapmf',[25 30 100 100]
+
+[Output1]
+Name='output1'
+Range=[0 600]
+NumMFs=5
+MF1='Zero':'constant',[0]
+MF2='Chậm':'constant',[150]
+MF3='TB':'constant',[300]
+MF4='Nhanh':'constant',[450]
+MF5='Max':'constant',[600]
+
+[Rules]
+1 1, 1 (1) : 1
+2 1, 2 (1) : 1
+3 1, 3 (1) : 1
+1 2, 2 (1) : 1
+2 2, 3 (1) : 1
+3 2, 4 (1) : 1
+1 3, 3 (1) : 1
+2 3, 4 (1) : 1
+3 3, 5 (1) : 1

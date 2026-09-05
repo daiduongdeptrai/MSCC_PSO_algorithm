@@ -1,0 +1,3 @@
+../Core/Src/_Fan.c:22:6:_fan_Init	1
+../Core/Src/_Fan.c:43:6:_fan_Updatespeed	7
+../Core/Src/_Fan.c:69:6:_fan_Setspeed	1

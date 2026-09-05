@@ -1,0 +1,5 @@
+../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_adc.h:3326:22:LL_ADC_REG_StartConversionSWStart	16	static
+../Core/Src/myADC.c:16:6:adcInit	16	static
+../Core/Src/myADC.c:35:6:adcRead	16	static
+../Core/Src/myADC.c:49:6:adcWaitforconversion	8	static,ignoring_inline_asm
+../Core/Src/myADC.c:59:6:adcResumeconversion	8	static

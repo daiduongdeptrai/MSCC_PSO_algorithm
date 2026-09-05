@@ -1,0 +1,11 @@
+../Core/Src/_SystemState.c:14:6:_statechargerInit	16	static
+../Core/Src/_SystemState.c:55:6:_statechargerUpdate	16	static
+../Core/Src/_SystemState.c:122:6:_Charging_BatteryCheck	32	static
+../Core/Src/_SystemState.c:148:7:_Charging_Delay_us	24	static
+../Core/Src/_SystemState.c:173:6:_Charging_SoftStart_UpdateDuty	24	static
+../Core/Src/_SystemState.c:200:6:_Charging_Relay_OFF	16	static
+../Core/Src/_SystemState.c:212:6:_Charging_Relay_ON	16	static
+../Core/Src/_SystemState.c:223:6:_Charging_Soft_Start	8	static
+../Core/Src/_SystemState.c:238:6:_Charging_HandShake	16	static
+../Core/Src/_SystemState.c:251:6:_Charging_FulCharged	16	static
+../Core/Src/_SystemState.c:264:6:_Charging_Protection	16	static

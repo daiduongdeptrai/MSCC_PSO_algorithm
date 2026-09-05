@@ -1,0 +1,4 @@
+../Core/Src/_HMI.c:42:6:hmiCleardisplay	0	static
+../Core/Src/_HMI.c:61:6:hmiInit	8	static
+../Core/Src/_HMI.c:80:6:hmiUpdatemessageVN	56	static
+../Core/Src/_HMI.c:274:6:hmiUpdatedisplay	16	static

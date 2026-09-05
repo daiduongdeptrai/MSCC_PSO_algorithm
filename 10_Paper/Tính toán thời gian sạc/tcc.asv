@@ -1,0 +1,79 @@
+function tcc
+    % =============== THÔNG SỐ BAN ĐẦU ===============
+    Icc = 2;                   % Dòng điện sạc (A)
+    U_cutoff = 4.2;            % Ngưỡng điện áp cắt (V)
+    Q0 = 2000 * 3.6;           % Dung lượng pin (Coulomb)
+    h = 0.01;                  % Bước thời gian mô phỏng (s)
+    t_max = 10000;             % Thời gian mô phỏng tối đa (s)
+
+    % =============== KHỞI TẠO DỮ LIỆU ===============
+    N = t_max / h;                         % Tổng số bước mô phỏng
+    t = 0:h:t_max;                         % Mảng thời gian (s)
+    Ucp = zeros(1, length(t));             % Điện áp RC song song (V)
+    U_t_arr = zeros(1, length(t));         % Mảng lưu điện áp tổng tại mỗi thời điểm
+
+    % =============== VÒNG LẶP MÔ PHỎNG ===============
+    for k = 1:N
+        % Cập nhật thời gian tại bước k
+        t(k) = k * h;
+
+        % Xác định trạng thái SoC (State of Charge)
+        SoC(k) = (t(k) * Icc) / Q0;
+
+        % Tính toán các thông số theo SoC(k)
+        OCV(k) = 2.896 + 9.563*SoC(k) - 57.92*SoC(k)^2 + 188.2*SoC(k)^3 ...
+               - 340.7*SoC(k)^4 + 347.5*SoC(k)^5 - 184.2*SoC(k)^6 + 38.95*SoC(k)^7;
+
+        R0(k) = 0.039 - 0.131*SoC(k) + 0.507*SoC(k)^2 - 1.129*SoC(k)^3 ...
+              + 1.679*SoC(k)^4 - 1.764*SoC(k)^5 + 1.157*SoC(k)^6 - 0.331*SoC(k)^7;
+
+        Rp(k) = 0.048 - 0.318*SoC(k) + 2.075*SoC(k)^2 - 9.171*SoC(k)^3 ...
+              + 23.41*SoC(k)^4 - 31.96*SoC(k)^5 + 21.71*SoC(k)^6 - 5.78*SoC(k)^7;
+
+        Cp(k) = 104.9 - 311.3*SoC(k) + 277.9*SoC(k)^2 - 2.435*SoC(k)^3 ...
+              - 111.4*SoC(k)^4 + 44.86*SoC(k)^5 - 1.53*SoC(k)^6 + 0.108*SoC(k)^7;
+
+        % Cập nhật điện áp trên nhánh RC song song bằng phương pháp Euler tiến
+        Ucp(k+1) = Ucp(k) + h * (-Ucp(k) / (Rp(k) * Cp(k)) + Icc / Cp(k));
+
+        % Tính điện áp tổng tại thời điểm k
+        U_t = OCV(k) + R0(k) * Icc + Ucp(k);
+        U_t_arr(k) = U_t;
+
+        % =============== KIỂM TRA NGƯỠNG CẮT ===============
+        if U_t < U_cutoff
+            Icc = 2;
+        else
+            U_t = U_cutoff;
+        end
+
+        if 
+            fprintf('Điện áp đạt ngưỡng cắt tại thời điểm: %.6f s\n', t(k-1));
+            fprintf('Trạng thái SoC: %.6f \n', SoC(k-1));
+            fprintf('Điện áp trên nhánh RC song song Ucp: %.6f V\n', Ucp(k-1));
+            fprintf('Điện áp mạch hở OCV: %.6f V\n', OCV(k-1));
+            fprintf('Số bước k: %d \n', k-1);
+            fprintf('Điện áp tổng U_t: %.6f V\n', OCV(k-1) + R0(k-1) * Icc + Ucp(k-1));
+            break;
+        end
+    end
+
+    % =============== VẼ ĐỒ THỊ ===============
+    figure;
+    
+    % Đồ thị điện áp
+    subplot(2,1,1);
+    plot(t(1:k), U_t_arr(1:k), 'b', 'LineWidth', 1.5);
+    xlabel('Thời gian (s)');
+    ylabel('Điện áp pin (V)');
+    title('Biến thiên điện áp trong quá trình sạc');
+    grid on;
+
+    % Đồ thị dòng điện (hằng số)
+    subplot(2,1,2);
+    plot(t(1:k), Icc * ones(1,k), 'r', 'LineWidth', 1.5);
+    xlabel('Thời gian (s)');
+    ylabel('Dòng điện sạc (A)');
+    title('Dòng điện sạc không đổi');
+    grid on;
+end

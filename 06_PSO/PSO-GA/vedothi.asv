@@ -1,0 +1,27 @@
+GA = readtable('GA.xlsx');
+PSO = readtable("PSO.xlsx");
+
+iteration = GA.Var1;
+
+% Vẽ biểu đồ hàm mục tiêu từ Var2 đến Var16
+figure(1);
+hold on
+
+% Vẽ cho GA: từ Var2 đến Var16
+for i = 2:16
+    plot(iteration, GA{:, i}, 'b-', 'LineWidth', 1.5);
+end
+
+% Vẽ cho PSO: từ Var2 đến Var16
+for i = 2:16
+    plot(iteration, PSO{:, i}, 'r--', 'LineWidth', 1.5);
+end
+
+xlabel('Số lần lặp');
+ylabel('Cost function');
+title('Giá trị hàm mục tiêu qua các lần lặp');
+legend('GA', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ... 
+       'PSO', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+grid on;
+ylim([0 2]);
+xlim([0 105]);

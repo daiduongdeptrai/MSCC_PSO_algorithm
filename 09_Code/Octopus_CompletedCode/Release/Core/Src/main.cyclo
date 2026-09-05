@@ -1,0 +1,6 @@
+../Core/Src/main.c:84:6:ISR_TIM3	1
+../Core/Src/main.c:90:6:EX_ISR_GPIO	1
+../Core/Src/main.c:94:6:HAL_GPIO_EXTI_Callback	1
+../Core/Src/main.c:158:6:SystemClock_Config	4
+../Core/Src/main.c:104:5:main	25
+../Core/Src/main.c:634:6:Error_Handler	1
